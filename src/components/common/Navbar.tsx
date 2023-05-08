@@ -5,9 +5,10 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css";
 import "swiper/css/navigation";
 import 'swiper/swiper.min.css';
+import {useState} from "react";
 
 interface NavItem {
-    value: string;
+    value: 'Life' | 'Kitchen' | 'Tech' | 'Interior' | 'Apparel' | 'Bag' | 'Shoes';
     link: string;
 }
 
@@ -19,15 +20,20 @@ export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const pathname = location.pathname.split('/')[1];
+    const [avtiveTab, setActiveTab] = useState(null);
+    const onClickHandler = (e: React.MouseEvent) => {
+        console.log('childNodes.values >> ', e.currentTarget.getAttribute('value'));
+        e.currentTarget.classList.add('nav-slide-active');
+        const href = e.currentTarget.getAttribute('value') as string;
+        navigate(href);
+    }
 
     return (
         <Nav>
             <Swiper slidesPerView={5} className='nav-swiper' slideActiveClass='nav-slide-active'>
                 {NavList.map((item , i) => {
-                    return (<SwiperSlide key={i} >
-                        <Item isActive={item.link.split('/')[1] === pathname}>
-                            <a href={item.link}>{item.value}</a>
-                        </Item>
+                    return (<SwiperSlide key={i}>
+                        <ItemButton onClick={e => onClickHandler(e)} value={item.link}>{item.value}</ItemButton>
                     </SwiperSlide>)
                 })}
             </Swiper>
@@ -50,19 +56,14 @@ const Nav = styled.nav`
   //background: var(--text-04);
   background: var(--ui-background);
   padding: 0 10px;
-
-  ul {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 20px;
-    height: 40px;
-    font-size: 14px;
-  }
 `;
 
-const Item = styled.div<Active>`
+const ItemButton = styled.button.attrs({type: "button"})`
   height: inherit;
   box-sizing: border-box;
   line-height: 40px;
+  font-size: 14px;
+  font-family: -apple-system;
+  text-align: center;
+  width: 100%;
 `;
