@@ -24,8 +24,8 @@ export default function Navbar() {
         <Nav>
             <Swiper slidesPerView={5} className='nav-swiper' slideActiveClass='nav-slide-active'>
                 {NavList.map((item , i) => {
-                    return (<SwiperSlide>
-                        <Item  key={i} isActive={item.link.split('/')[1] === pathname}>
+                    return (<SwiperSlide key={i} >
+                        <Item isActive={item.link.split('/')[1] === pathname}>
                             <a href={item.link}>{item.value}</a>
                         </Item>
                     </SwiperSlide>)
