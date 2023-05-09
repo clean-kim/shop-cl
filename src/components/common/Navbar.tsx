@@ -20,19 +20,16 @@ export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
     const pathname = location.pathname.split('/')[1];
-    const [avtiveTab, setActiveTab] = useState(null);
     const onClickHandler = (e: React.MouseEvent) => {
-        console.log('childNodes.values >> ', e.currentTarget.getAttribute('value'));
-        e.currentTarget.classList.add('nav-slide-active');
         const href = e.currentTarget.getAttribute('value') as string;
         navigate(href);
     }
 
     return (
         <Nav>
-            <Swiper slidesPerView={5} className='nav-swiper' slideActiveClass='nav-slide-active'>
+            <Swiper slidesPerView={5} className='nav-swiper'>
                 {NavList.map((item , i) => {
-                    return (<SwiperSlide key={i}>
+                    return (<SwiperSlide key={i} className={item.link.split('/')[1] === pathname ? 'nav-slide-active' : ''} >
                         <ItemButton onClick={e => onClickHandler(e)} value={item.link}>{item.value}</ItemButton>
                     </SwiperSlide>)
                 })}
@@ -63,7 +60,8 @@ const ItemButton = styled.button.attrs({type: "button"})`
   box-sizing: border-box;
   line-height: 40px;
   font-size: 14px;
-  font-family: -apple-system;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
   text-align: center;
   width: 100%;
 `;

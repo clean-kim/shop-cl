@@ -62,6 +62,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .main-swiper {
+    position: relative;
+    
     .swiper-button-next, .swiper-button-prev {
       color: var(--primary);
     }
