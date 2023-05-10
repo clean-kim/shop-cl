@@ -21,6 +21,7 @@ export default function Item(props: Product) {
     const [favorite, setFavorite] = useState(false);
     const like = () => {
         setFavorite(prevState => !prevState);
+
     }
 
     return (

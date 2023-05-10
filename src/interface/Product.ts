@@ -1,4 +1,5 @@
 export default interface Product {
+    no: number;
     title: string;
     price: number;
     priceText?: string;
