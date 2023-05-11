@@ -6,16 +6,10 @@ import {ListLayout} from '../assets/GlobalStyle';
 
 export default function MainPC() {
     return (
-        <MainPCLayout>
-            <ListLayout>
-                {ProductList.map((res, i) => {
-                    return <Item key={i} {...res} />
-                })}
-            </ListLayout>
-        </MainPCLayout>
+        <ListLayout>
+            {ProductList.map((res, i) => {
+                return <Item key={i} {...res} />
+            })}
+        </ListLayout>
     );
 }
-
-const MainPCLayout = styled.section`
-  //padding-top: 100px;
-`;

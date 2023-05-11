@@ -22,7 +22,7 @@ export default function MainMobile() {
     const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
     return (
-        <MainMobileLayout>
+        <section>
             <Swiper
                 pagination={{
                     type: "progressbar",
@@ -68,7 +68,7 @@ export default function MainMobile() {
                     })}
                 </ListLayout>
             </Margin>
-        </MainMobileLayout>
+        </section>
     );
 }
 
@@ -77,10 +77,6 @@ const SwiperList = [
     slideSample2,
     slideSample3
 ]
-
-const MainMobileLayout = styled.section`
-  padding-top: 90px;
-`;
 
 const SwiperNavigation = styled.div`
   position: absolute;

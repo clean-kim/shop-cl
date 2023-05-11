@@ -7,3 +7,12 @@ export default interface Product {
     brandName: string;
     discountRate: number;
 }
+
+export interface CartData {
+    itemList?: Product[];
+    productCount?: {
+        no: number;
+        count: number;
+    }
+    totalAmount?: number;
+}

@@ -25,32 +25,36 @@ export default function Item(props: Product) {
     }
 
     return (
-        <Layout>
-            <BackgroundAnchor href={`/signup`}>
-                <OuterImgBox>
-                    <InnerImgBox>
-                        <Img src={img} alt=""/>
-                    </InnerImgBox>
-                </OuterImgBox>
+        <ItemLayout>
+            <div>
+                <BackgroundAnchor href={`/detail`}>
+                    <OuterImgBox>
+                        <InnerImgBox>
+                            <Img src={img} alt=""/>
+                        </InnerImgBox>
+                    </OuterImgBox>
+                </BackgroundAnchor>
                 <Info>
-                    <BrandName>
-                        {item.brandName}
-                    </BrandName>
-                    <Title>
-                        {item.title}
-                    </Title>
-                    <Price>
-                        {item.priceText}
-                    </Price>
-                    <BrandGo href={`/`}>{item.brandName}</BrandGo>
+                    <BrandGo href={`/brand`}>{item.brandName}</BrandGo>
+                    <a href="/detail">
+                        <BrandName>
+                            {item.brandName}
+                        </BrandName>
+                        <Title>
+                            {item.title}
+                        </Title>
+                        <Price>
+                            {item.priceText}
+                        </Price>
+                    </a>
                 </Info>
-            </BackgroundAnchor>
+            </div>
             <div style={{marginTop: '8px'}}>
                 <FavoriteButton onClick={like}>
                     {favorite ? <FavoriteIcon {...FavButtonStyle} /> : <FavoriteBorderIcon  {...FavButtonStyle} />}
                 </FavoriteButton>
             </div>
-        </Layout>
+        </ItemLayout>
     );
 }
 
@@ -61,7 +65,7 @@ const FavButtonStyle = {
     }
 }
 
-const Layout = styled.div`
+const ItemLayout = styled.div`
   width: 20%;
   font-size: 13px;
   text-align: start;
@@ -95,6 +99,7 @@ const BackgroundAnchor = styled.a`
 
 const Info = styled.div`
   margin-top: 10px;
+  position: relative;
 `;
 
 const OuterImgBox = styled.div`
@@ -126,10 +131,9 @@ const BrandName = styled.div`
 
 const BrandGo = styled.a`
   position: absolute;
-  top: 10px;
+  top: 0;
   left: 0;
   right: 0;
-  margin-top: 100%;
   color: transparent;
   &:link, &:visited {
     text-decoration: none;

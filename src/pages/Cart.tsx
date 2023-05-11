@@ -1,16 +1,25 @@
 import CartMobile from "../components/cart/CartMobile";
 import {M, PC} from "../components/common/MediaQuery";
 import styled from "styled-components";
+import {useEffect} from "react";
+import {CartList} from '../server/server';
+import EmptyCart from "../components/cart/EmptyCart";
+
 
 export default function Cart() {
+    useEffect(() => {
+
+    }, []);
+
     return (
-        <CartLayout>
-            <M elem={<CartMobile />} />
-            <PC elem={<p>cart pccccc</p>} />
-        </CartLayout>
+        <>
+            {CartList.itemList && CartList.itemList?.length > 0 ?
+                <>
+                    <M elem={<CartMobile {...CartList} />} />
+                    <PC elem={<p>cart pc</p>} />
+                </>
+                :
+                <EmptyCart />}
+        </>
     );
 }
-
-const CartLayout = styled.section`
-  padding-top: 50px;
-`;

@@ -1,4 +1,4 @@
-import Product from "../interface/Product";
+import Product, {CartData} from "../interface/Product";
 
 export const ProductList: Product[] = [
     {no: 1, title: '시원한 여름용 리넨 쿠션 커버 2+1', price: 30000, likeCnt: 0, brandName: '도리도리', discountRate: 5},
@@ -21,3 +21,12 @@ export const ProductList: Product[] = [
     {no: 18, title: 'Panton Wire, Chrome | 6월초입고예정', price: 430000, likeCnt: 2258, brandName: '칙바이스탠드', discountRate: 35},
     {no: 19, title: '진진 16평형 프리미엄 스탠드 에어컨 ASCDG24OOEW (전국무료배송/기본설치무료)', price: 1846500, likeCnt: 66, brandName: '진진', discountRate: 14},
 ];
+
+
+export const CartList: CartData = {
+    itemList: [
+        {no: 17, title: '라스트원 베니스 엔틱 원목책상 원목테이블 아일랜드식탁', price: 390000, likeCnt: 512, brandName: '라스트원', discountRate: 25},
+        {no: 18, title: 'Panton Wire, Chrome | 6월초입고예정', price: 430000, likeCnt: 2258, brandName: '칙바이스탠드', discountRate: 35},
+    ],
+    totalAmount: 82000
+};

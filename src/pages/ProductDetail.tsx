@@ -14,7 +14,7 @@ export default function ProductDetail() {
     }
 
     return (
-        <ProductDetailLayout>
+        <div>
             <MainImage src={img} alt="상품 상세이미지"/>
             <InfoSection>
                 <Title>{`(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set`}</Title>
@@ -51,13 +51,9 @@ export default function ProductDetail() {
                     </Button>
                 </MoreBox>
             </ProductImageBox>
-        </ProductDetailLayout>
+        </div>
     );
 }
-
-const ProductDetailLayout = styled.div`
-  padding-top: 90px;
-`;
 
 const MainImage = styled.img`
   @media only screen and (max-width: 768px) {

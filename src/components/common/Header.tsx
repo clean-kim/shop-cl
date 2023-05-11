@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 export default function Header() {
     return (
@@ -11,8 +11,8 @@ export default function Header() {
                     <img src="/cl.png" alt="logo" style={{width: '30px'}}/>
                 </a>
                 <div>
-                    <button><SearchIcon /></button>
-                    <button><ShoppingCartCheckoutIcon /></button>
+                    <SearchButton><SearchIcon /></SearchButton>
+                    <a href='/cart' aria-label={`장바구니 바로가기`}><ShoppingCartOutlinedIcon /></a>
                 </div>
             </Top>
             <Navbar />
@@ -21,17 +21,15 @@ export default function Header() {
 }
 
 const HeaderLayout = styled.header`
-  position: absolute;
+  position: sticky;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: 99;
   background: var(--ui-background);
-  height: 50px;
 
   @media only screen and (max-width:768px) {
-    position: fixed;
     top: 0;
     right: 0;
   }
@@ -39,7 +37,16 @@ const HeaderLayout = styled.header`
 `;
 
 const Top = styled.div`
+  position: sticky;
+  height: 50px;
+  min-height: 50px;
   display: flex;
   justify-content: space-between;
   padding: 10px;
+`;
+
+const SearchButton = styled.button.attrs({
+    type: "button"
+})`
+  margin: 0 8px;
 `;

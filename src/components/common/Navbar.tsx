@@ -53,6 +53,10 @@ const Nav = styled.nav`
   //background: var(--text-04);
   background: var(--ui-background);
   padding: 0 10px;
+  width: 100%;
+  height: 40px;
+  min-height: 40px;
+  position: sticky;
 `;
 
 const ItemButton = styled.button.attrs({type: "button"})`

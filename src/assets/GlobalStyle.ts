@@ -4,6 +4,13 @@ import reset from 'styled-reset';
 const GlobalStyle = createGlobalStyle`
   ${reset}
   * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
     box-sizing: border-box;
   }
 
@@ -42,6 +49,7 @@ const GlobalStyle = createGlobalStyle`
     --secondary: #1f2124;
     --tertiary: #ff6700;
     --ui-background: #ffffff;
+    --ui-01: #fafafa;
     --border50: #fafafa;
     --border100: #f5f5f5;
     --border200: #eeeeee;
