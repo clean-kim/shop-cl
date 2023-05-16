@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
+import {CSSProperties} from "react";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -50,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
     --tertiary: #ff6700;
     --ui-background: #ffffff;
     --ui-01: #fafafa;
+    --ui-transparent: transparent; 
     --border50: #fafafa;
     --border100: #f5f5f5;
     --border200: #eeeeee;
@@ -94,7 +96,7 @@ const GlobalStyle = createGlobalStyle`
 
 export default GlobalStyle;
 
-export type MarginProps = {
+interface MarginProps {
   margin: string;
   mt: number;
   mr: number;
@@ -115,3 +117,9 @@ export const ListLayout = styled.div`
   flex-wrap: wrap;
 `;
 
+export const Flex = styled(Margin)<CSSProperties>`
+  display: flex;
+  flex-direction: ${({flexDirection}) => flexDirection ?? 'row'};
+  justify-content: ${({justifyContent}) => justifyContent ?? `center`};
+  align-items: ${({alignItems}) => alignItems ?? `center`};
+`;

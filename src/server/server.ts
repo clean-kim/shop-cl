@@ -1,4 +1,5 @@
 import Product, {CartData} from "../interface/Product";
+import Storage from "../utils/Storage";
 
 export const ProductList: Product[] = [
     {no: 1, title: '시원한 여름용 리넨 쿠션 커버 2+1', price: 30000, likeCnt: 0, brandName: '도리도리', discountRate: 5},
@@ -23,10 +24,30 @@ export const ProductList: Product[] = [
 ];
 
 
-export const CartList: CartData = {
-    itemList: [
-        {no: 17, title: '라스트원 베니스 엔틱 원목책상 원목테이블 아일랜드식탁', price: 390000, likeCnt: 512, brandName: '라스트원', discountRate: 25},
-        {no: 18, title: 'Panton Wire, Chrome | 6월초입고예정', price: 430000, likeCnt: 2258, brandName: '칙바이스탠드', discountRate: 35},
-    ],
-    totalAmount: 82000
+export const CartList = (): CartData => {
+    console.log('through this?');
+    Storage().set(`test`, `hi`);
+
+    const result:CartData = {
+        itemList: [
+            {
+                no: 17,
+                title: '라스트원 베니스 엔틱 원목책상 원목테이블 아일랜드식탁',
+                price: 390000,
+                likeCnt: 512,
+                brandName: '라스트원',
+                discountRate: 25
+            },
+            {
+                no: 18,
+                title: 'Panton Wire, Chrome | 6월초입고예정',
+                price: 430000,
+                likeCnt: 2258,
+                brandName: '칙바이스탠드',
+                discountRate: 35
+            },
+        ],
+            totalAmount: 82000
+    };
+    return result;
 };
