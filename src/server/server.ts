@@ -26,7 +26,6 @@ export const ProductList: Product[] = [
 
 export const CartList = (): CartData => {
     console.log('through this?');
-    Storage().set(`test`, `hi`);
 
     const result:CartData = {
         itemList: [
@@ -46,8 +45,7 @@ export const CartList = (): CartData => {
                 brandName: '칙바이스탠드',
                 discountRate: 35
             },
-        ],
-            totalAmount: 82000
+        ]
     };
     return result;
 };

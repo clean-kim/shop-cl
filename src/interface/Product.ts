@@ -6,13 +6,16 @@ export default interface Product {
     likeCnt: number;
     brandName: string;
     discountRate: number;
+    option?: ProductOption[];
+}
+
+export interface ProductOption {
+    no: number;
+    count: number;
 }
 
 export interface CartData {
-    itemList?: Product[];
-    productCount?: {
-        no: number;
-        count: number;
-    }
+    itemList: Product[];
+    optionList: ProductOption[];
     totalAmount?: number;
 }
