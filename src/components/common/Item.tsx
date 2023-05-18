@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useEffect, useState} from "react";
-import Product from "../../interface/Product";
-import img from '../../assets/img/img.png';
+import Product from "@interface/Product";
+import img from '@assets/img/img.png';
 
 export default function Item(props: Product) {
 

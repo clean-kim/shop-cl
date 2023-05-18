@@ -24,28 +24,6 @@ export const ProductList: Product[] = [
 ];
 
 
-export const CartList = (): CartData => {
-    console.log('through this?');
-
-    const result:CartData = {
-        itemList: [
-            {
-                no: 17,
-                title: '라스트원 베니스 엔틱 원목책상 원목테이블 아일랜드식탁',
-                price: 390000,
-                likeCnt: 512,
-                brandName: '라스트원',
-                discountRate: 25
-            },
-            {
-                no: 18,
-                title: 'Panton Wire, Chrome | 6월초입고예정',
-                price: 430000,
-                likeCnt: 2258,
-                brandName: '칙바이스탠드',
-                discountRate: 35
-            },
-        ]
-    };
-    return result;
+export const CartList = () => {
+    return [];
 };

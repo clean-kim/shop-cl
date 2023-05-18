@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {CartData} from "../../interface/Product";
 
-export default function CartMobile(params: CartData) {
+export default function CartMobile() {
 
     return (
         <CartMobileBox>

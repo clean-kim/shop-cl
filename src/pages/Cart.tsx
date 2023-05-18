@@ -13,9 +13,9 @@ export default function Cart() {
 
     return (
         <>
-            {datas.itemList && datas.itemList.length > 0 ?
+            {datas && datas.length > 0 ?
                 <>
-                    <M elem={<CartMobile {...datas} />} />
+                    <M elem={<CartMobile />} />
                     <PC elem={<p>cart pc</p>} />
                 </>
                 :
