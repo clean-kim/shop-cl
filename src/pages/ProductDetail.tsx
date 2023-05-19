@@ -3,6 +3,7 @@ import img from "@assets/img/img.png";
 import long_img from '@assets/img/long_img.jpeg';
 import Button, {ButtonStyleGuide} from "@components/common/Button";
 import {useRef, useState} from "react";
+import BuyGroup from "@components/productDetail/BuyGroup";
 
 type MoreButtonProps = {open: boolean;}
 
@@ -51,6 +52,7 @@ export default function ProductDetail() {
                     </Button>
                 </MoreBox>
             </ProductImageBox>
+            <BuyGroup no={1} title={`제목`} price={3000} likeCnt={4} brandName={`BRAND`} discountRate={5} option={``} count={1} />
         </div>
     );
 }
@@ -121,7 +123,6 @@ const MoreBox = styled.div<MoreButtonProps>`
     height: 78px;
   }
   
-  z-index: 9;
   width: 100%;
   height: 100px;
   bottom: 0;

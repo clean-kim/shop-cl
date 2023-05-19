@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-import {CartData} from "@interface/Product";
 
 export default function CartMobile() {
 
