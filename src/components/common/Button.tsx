@@ -20,7 +20,7 @@ export default function Button({type, onClickHandler, children, disabled, setSty
             >
                 {children}
             </ButtonLayout>;
-};
+}
 
 const ButtonLayout = styled.button<ButtonProps>`
   font-size: 15px;

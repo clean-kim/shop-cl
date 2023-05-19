@@ -1,5 +1,5 @@
-import {Flex, Margin} from "../../assets/GlobalStyle";
-import img from "../../assets/img/img.png";
+import {Flex, Margin} from "@assets/GlobalStyle";
+import img from "@assets/img/img.png";
 import Calculator from "./Calculator";
 import styled from "styled-components";
 

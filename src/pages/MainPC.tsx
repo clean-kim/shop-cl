@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import {ProductList} from "../server/server";
-import Item from "../components/common/Item";
+import {ProductList} from "@server/server";
+import Item from "@components/common/Item";
 import React from "react";
-import {ListLayout} from '../assets/GlobalStyle';
+import {ListLayout} from '@assets/GlobalStyle';
 
 export default function MainPC() {
     return (

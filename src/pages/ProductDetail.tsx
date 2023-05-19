@@ -1,7 +1,7 @@
 import styled, {css} from "styled-components";
-import img from "../assets/img/img.png";
-import long_img from '../assets/img/long_img.jpeg';
-import Button, {ButtonStyleGuide} from "../components/common/Button";
+import img from "@assets/img/img.png";
+import long_img from '@assets/img/long_img.jpeg';
+import Button, {ButtonStyleGuide} from "@components/common/Button";
 import {useRef, useState} from "react";
 
 type MoreButtonProps = {open: boolean;}

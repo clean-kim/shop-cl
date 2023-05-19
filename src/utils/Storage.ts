@@ -1,4 +1,4 @@
-import Product, {CartData} from "../interface/Product";
+import Product, {CartData} from "@interface/Product";
 
 export default function Storage() {
     const {localStorage} = window;

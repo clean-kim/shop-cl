@@ -1,4 +1,4 @@
-import {M, PC} from "../components/common/MediaQuery";
+import {M, PC} from "@components/common/MediaQuery";
 import MainMobile from "./MainMobile";
 import MainPC from "./MainPC";
 import React from "react";

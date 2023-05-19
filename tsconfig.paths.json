@@ -9,7 +9,7 @@
       "@server/*": ["./server/*"],
       "@utils/*": ["./utils/*"],
       "@gnb/*": ["./gnb/*"],
-      "@interface/*": ["./interface/*"],
+      "@interface/*": ["./interface/*"]
     }
   }
 }

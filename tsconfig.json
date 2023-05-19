@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": [
       "dom",
       "dom.iterable",
@@ -20,8 +20,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
   },
+  "extends": "./tsconfig.paths.json",
   "include": [
-    "src"
+    "src",
+    "craco.config.js"
   ],
-  "extends": "./tsconfig.paths.json"
 }

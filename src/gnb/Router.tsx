@@ -1,7 +1,7 @@
 import {Routes, Route} from "react-router";
-import Cart from "../pages/Cart";
-import Main from "../pages/Main";
-import ProductDetail from "../pages/ProductDetail";
+import Cart from "@pages/Cart";
+import Main from "@pages/Main";
+import ProductDetail from "@pages/ProductDetail";
 
 export default function Router() {
     return (

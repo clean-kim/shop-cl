@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Margin} from "../../assets/GlobalStyle";
+import {Margin} from "@assets/GlobalStyle";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 export default function EmptyCart() {

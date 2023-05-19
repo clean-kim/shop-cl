@@ -1,5 +1,4 @@
-import Product, {CartData} from "../interface/Product";
-import Storage from "../utils/Storage";
+import Product from "@interface/Product";
 
 export const ProductList: Product[] = [
     {no: 1, title: '시원한 여름용 리넨 쿠션 커버 2+1', price: 30000, likeCnt: 0, brandName: '도리도리', discountRate: 5},
