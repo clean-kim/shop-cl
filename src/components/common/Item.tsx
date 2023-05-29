@@ -4,6 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useEffect, useState} from "react";
 import Product from "@interface/Product";
 import img from '@assets/img/img.png';
+import {Link} from "react-router-dom";
 
 export default function Item(props: Product) {
 
@@ -27,7 +28,7 @@ export default function Item(props: Product) {
     return (
         <ItemLayout>
             <div>
-                <BackgroundAnchor href={`/detail`}>
+                <BackgroundAnchor to={`/detail`}>
                     <OuterImgBox>
                         <InnerImgBox>
                             <Img src={img} alt=""/>
@@ -35,8 +36,8 @@ export default function Item(props: Product) {
                     </OuterImgBox>
                 </BackgroundAnchor>
                 <Info>
-                    <BrandGo href={`/brand`}>{item.brandName}</BrandGo>
-                    <a href="/detail">
+                    <BrandGo to={`/brand`}>{item.brandName}</BrandGo>
+                    <Link to="/detail">
                         <BrandName>
                             {item.brandName}
                         </BrandName>
@@ -46,7 +47,7 @@ export default function Item(props: Product) {
                         <Price>
                             {item.priceText}
                         </Price>
-                    </a>
+                    </Link>
                 </Info>
             </div>
             <div style={{marginTop: '8px'}}>
@@ -88,7 +89,7 @@ const FavoriteButton = styled.button.attrs({type: 'button'})`
   cursor: pointer;
 `;
 
-const BackgroundAnchor = styled.a`
+const BackgroundAnchor = styled(Link)`
   position: relative;
   
   &:link, &:visited {
@@ -129,7 +130,7 @@ const BrandName = styled.div`
   word-break: break-all;
 `;
 
-const BrandGo = styled.a`
+const BrandGo = styled(Link)`
   position: absolute;
   top: 0;
   left: 0;

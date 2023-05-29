@@ -2,17 +2,18 @@ import styled from "styled-components";
 import Navbar from "./Navbar";
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import {Link} from "react-router-dom";
 
 export default function Header() {
     return (
         <HeaderLayout>
             <Top>
-                <a href="/">
+                <Link to="/">
                     <img src="/cl.png" alt="logo" style={{width: '30px'}}/>
-                </a>
+                </Link>
                 <div>
                     <SearchButton><SearchIcon /></SearchButton>
-                    <a href='/cart' aria-label={`장바구니 바로가기`}><ShoppingCartOutlinedIcon /></a>
+                    <Link to='/cart' aria-label={`장바구니 바로가기`}><ShoppingCartOutlinedIcon /></Link>
                 </div>
             </Top>
             <Navbar />
