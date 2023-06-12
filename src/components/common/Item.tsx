@@ -16,6 +16,7 @@ export default function Item(props: Product) {
 
     useEffect(() => {
         setPriceText(item.price);
+        setItem({...props});
     }, []);
 
 
@@ -28,7 +29,7 @@ export default function Item(props: Product) {
     return (
         <ItemLayout>
             <div>
-                <BackgroundAnchor to={`/detail`}>
+                <BackgroundAnchor to={`/detail/${item.no}`}>
                     <OuterImgBox>
                         <InnerImgBox>
                             <Img src={img} alt=""/>
@@ -37,7 +38,7 @@ export default function Item(props: Product) {
                 </BackgroundAnchor>
                 <Info>
                     <BrandGo to={`/brand`}>{item.brandName}</BrandGo>
-                    <Link to="/detail">
+                    <Link to={`/detail/${item.no}`}>
                         <BrandName>
                             {item.brandName}
                         </BrandName>

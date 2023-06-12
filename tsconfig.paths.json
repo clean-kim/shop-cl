@@ -6,7 +6,7 @@
       "@assets/*": ["./assets/*"],
       "@pages/*": ["./pages/*"],
       "@modules/*": ["./modules/*"],
-      "@server/*": ["./server/*"],
+      "@api/*": ["./api/*"],
       "@utils/*": ["./utils/*"],
       "@gnb/*": ["./gnb/*"],
       "@interface/*": ["./interface/*"]

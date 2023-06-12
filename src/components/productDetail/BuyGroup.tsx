@@ -6,18 +6,18 @@ import {addCart} from "@modules/cartSlice";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-export default function BuyGroup(params: Product) {
-    const [product, setProduct] = useState<Product>({...params});
-    const cartSelector = useAppSelector(state => state.cartSlice);
+export default function BuyGroup(props: Product) {
+    const [product, setProduct] = useState<Product>({...props});
     const dispatch = useAppDispatch();
 
     const addToCart = () => {
-        dispatch(addCart(product));
+        dispatch(addCart({...product, count: 1, option: ''}));
     }
 
+
     useEffect(() => {
-        console.log('initial Check :: ', product);
-    }, [cartSelector]);
+        setProduct({...props});
+    }, [props]);
 
     return (
       <BuyGroupLayout>

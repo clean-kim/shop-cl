@@ -1,9 +1,12 @@
 import styled, {css} from "styled-components";
 import img from "@assets/img/img.png";
 import long_img from '@assets/img/long_img.jpeg';
-import Button, {ButtonStyleGuide} from "@components/common/Button";
-import {useRef, useState} from "react";
+import Button from "@components/common/Button";
+import {useEffect, useRef, useState} from "react";
 import BuyGroup from "@components/productDetail/BuyGroup";
+import {useParams} from 'react-router';
+import instance from '@api/axios';
+import Product, {GetProductInterface} from '@interface/Product';
 
 type MoreButtonProps = {open: boolean;}
 
@@ -14,23 +17,42 @@ export default function ProductDetail() {
         setOpen(prevState => !prevState);
     }
 
+    const {no} = useParams();
+    const [item, setItem] = useState<Product>({
+        no: 0,
+        title: '',
+        price: 0,
+        priceText: '',
+        likeCnt: 0,
+        brandName: '',
+        discountRate: 0
+    });
+    const getProductDetail = (no: string) => {
+        instance.get(`/products?no=${no}`).then(res => {
+            setItem(GetProductInterface(res.data)[0]);
+        });
+    }
+    useEffect(() => {
+        getProductDetail(no as string);
+    }, []);
+
     return (
         <div>
             <MainImage src={img} alt="상품 상세이미지"/>
             <InfoSection>
-                <Title>{`(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set(w) Paint Short Pajama Set`}</Title>
+                <Title>{item.title}</Title>
                 <PriceBox>
                     <PrimeCost>
-                        {`88,000원`}
+                        {`${item.priceText}원`}
                     </PrimeCost>
                     <SalePriceBox>
-                        <span>{`15%`}</span> <div>{`74,800원`}</div>
+                        <DiscountRateSpan>{`${item.discountRate}%`}</DiscountRateSpan><span>{`${item.discountPriceText}원`}</span>
                     </SalePriceBox>
                 </PriceBox>
                 <BrandBox>
                     <img src={img} alt=""/>
                     <div>
-                        {`BRAND NAME`}
+                        {item.brandName}
                     </div>
                 </BrandBox>
             </InfoSection>
@@ -52,7 +74,7 @@ export default function ProductDetail() {
                     </Button>
                 </MoreBox>
             </ProductImageBox>
-            <BuyGroup no={1} title={`제목`} price={3000} likeCnt={4} brandName={`BRAND`} discountRate={5} option={``} count={1} />
+            <BuyGroup {...item} />
         </div>
     );
 }
@@ -88,10 +110,11 @@ const SalePriceBox = styled.div`
   font-size: 18px;
   font-weight: 700;
   margin-top: 8px;
-  
-  span {
-    color: var(--tertiary);
-  }
+`;
+
+const DiscountRateSpan = styled.span`
+  color: var(--tertiary);
+  margin-right: 5px;
 `;
 
 const BrandBox = styled.div`
@@ -99,6 +122,7 @@ const BrandBox = styled.div`
   width: 100%;
   line-height: 60px;
   font-weight: 500;
+  font-size: 14px;
   height: 60px;
   max-height: 60px;
   position: relative;
