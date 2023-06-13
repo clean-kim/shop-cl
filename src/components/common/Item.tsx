@@ -7,56 +7,52 @@ import img from '@assets/img/img.png';
 import {Link} from "react-router-dom";
 
 export default function Item(props: Product) {
-
-    const [item, setItem] = useState<Product>(props);
-    const setPriceText = (price: number) => {
-        const priceText = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-        setItem(prevState => ({...prevState, priceText: priceText}));
-    }
-
+    const [item, setItem] = useState<Product>();
     useEffect(() => {
-        setPriceText(item.price);
         setItem({...props});
-    }, []);
-
+    }, [props]);
 
     const [favorite, setFavorite] = useState(false);
     const like = () => {
         setFavorite(prevState => !prevState);
-
     }
 
     return (
-        <ItemLayout>
-            <div>
-                <BackgroundAnchor to={`/detail/${item.no}`}>
-                    <OuterImgBox>
-                        <InnerImgBox>
-                            <Img src={img} alt=""/>
-                        </InnerImgBox>
-                    </OuterImgBox>
-                </BackgroundAnchor>
-                <Info>
-                    <BrandGo to={`/brand`}>{item.brandName}</BrandGo>
-                    <Link to={`/detail/${item.no}`}>
-                        <BrandName>
-                            {item.brandName}
-                        </BrandName>
-                        <Title>
-                            {item.title}
-                        </Title>
-                        <Price>
-                            {item.priceText}
-                        </Price>
-                    </Link>
-                </Info>
-            </div>
-            <div style={{marginTop: '8px'}}>
-                <FavoriteButton onClick={like}>
-                    {favorite ? <FavoriteIcon {...FavButtonStyle} /> : <FavoriteBorderIcon  {...FavButtonStyle} />}
-                </FavoriteButton>
-            </div>
-        </ItemLayout>
+        <>
+            {
+                item &&
+                <ItemLayout>
+                    <div>
+                        <BackgroundAnchor to={`/detail/${item.no}`}>
+                            <OuterImgBox>
+                                <InnerImgBox>
+                                    <Img src={img} alt=""/>
+                                </InnerImgBox>
+                            </OuterImgBox>
+                        </BackgroundAnchor>
+                        <Info>
+                            <BrandGo to={`/brand`}>{item.brandName}</BrandGo>
+                            <Link to={`/detail/${item.no}`}>
+                                <BrandName>
+                                    {item.brandName}
+                                </BrandName>
+                                <Title>
+                                    {item.title}
+                                </Title>
+                                <Price>
+                                    {item.priceText}
+                                </Price>
+                            </Link>
+                        </Info>
+                    </div>
+                    <div style={{marginTop: '8px'}}>
+                        <FavoriteButton onClick={like}>
+                            {favorite ? <FavoriteIcon {...FavButtonStyle} /> : <FavoriteBorderIcon  {...FavButtonStyle} />}
+                        </FavoriteButton>
+                    </div>
+                </ItemLayout>
+            }
+        </>
     );
 }
 

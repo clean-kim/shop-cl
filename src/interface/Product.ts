@@ -7,7 +7,9 @@ export default interface Product {
     priceText?: string;
     likeCnt: number;
     brandName: string;
+    category?: string;
     discountRate: number;
+    discountPrice?: number;
     discountPriceText?: string;
     option?: string;
     count?: number;
@@ -27,6 +29,7 @@ export const GetProductInterface: (data: any) => Product[] = (data: any) => {
             priceText: item.price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
             likeCnt: item.likeCnt as number,
             brandName: item.brandName as string,
+            category: item.category as string,
             discountRate: item.discountRate as number,
             discountPriceText: CalculateDiscountRate(item.price, item.discountRate).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
         } as Product

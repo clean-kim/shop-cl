@@ -9,7 +9,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 export default function BuyGroup(props: Product) {
     const [product, setProduct] = useState<Product>({...props});
     const dispatch = useAppDispatch();
-
     const addToCart = () => {
         dispatch(addCart({...product, count: 1, option: ''}));
     }

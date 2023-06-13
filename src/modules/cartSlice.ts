@@ -22,7 +22,6 @@ const cartSlice = createSlice({
                     duplicateItem.forEach((item: Product) => {
                         if (item.count) {   // 중복일 때 카운트만 증가
                             const count = item.count+1;
-                            console.log('newArr > ', newArr);
                             newArr.push({...item, count});
                         }
                     })

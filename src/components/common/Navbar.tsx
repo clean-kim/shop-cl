@@ -1,36 +1,26 @@
 import styled from "styled-components";
-import {useLocation, useNavigate} from "react-router";
-import SwiperCore, { Navigation, Scrollbar } from 'swiper';
+import {useLocation} from "react-router";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import "swiper/css";
 import "swiper/css/navigation";
 import 'swiper/swiper.min.css';
-import {useState} from "react";
+import {Link} from 'react-router-dom';
 
 interface NavItem {
     value: 'Life' | 'Kitchen' | 'Tech' | 'Interior' | 'Apparel' | 'Bag' | 'Shoes';
     link: string;
 }
 
-interface Active {
-    isActive: boolean;
-}
-
 export default function Navbar() {
-    const navigate = useNavigate();
     const location = useLocation();
     const pathname = location.pathname.split('/')[1];
-    const onClickHandler = (e: React.MouseEvent) => {
-        const href = e.currentTarget.getAttribute('value') as string;
-        navigate(href);
-    }
 
     return (
         <Nav>
             <Swiper slidesPerView={5} className='nav-swiper'>
                 {NavList.map((item , i) => {
                     return (<SwiperSlide key={i} className={item.link.split('/')[1] === pathname ? 'nav-slide-active' : ''} >
-                        <ItemButton onClick={e => onClickHandler(e)} value={item.link}>{item.value}</ItemButton>
+                        <ItemButton to={item.link}>{item.value}</ItemButton>
                     </SwiperSlide>)
                 })}
             </Swiper>
@@ -52,6 +42,7 @@ const Nav = styled.nav`
   box-sizing: border-box;
   //background: var(--text-04);
   background: var(--ui-background);
+  border-bottom: 1px solid var(--border100);
   padding: 0 10px;
   width: 100%;
   height: 40px;
@@ -59,7 +50,9 @@ const Nav = styled.nav`
   position: sticky;
 `;
 
-const ItemButton = styled.button.attrs({type: "button"})`
+const ItemButton = styled(Link)`
+  display: block;
+  width: 100%;
   height: inherit;
   box-sizing: border-box;
   line-height: 40px;
@@ -67,5 +60,4 @@ const ItemButton = styled.button.attrs({type: "button"})`
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 500;
   text-align: center;
-  width: 100%;
 `;

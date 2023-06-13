@@ -51,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
     --tertiary: #ff6700;
     --ui-background: #ffffff;
     --ui-01: #fafafa;
+    --ui-02: #f5f5f5;
     --ui-transparent: transparent; 
     --border50: #fafafa;
     --border100: #f5f5f5;
