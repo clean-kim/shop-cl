@@ -12,22 +12,6 @@ export default function Storage() {
         localStorage.removeItem(`${prefix+key}`);
     }
 
-    // 장바구니 상품 중복 확인
-   /* const cartDoubleCheck = (key: string, productNo: number) => {
-        const originData = localStorage.getItem(`${prefix + key}`);
-        if(originData) {
-            const parseData = JSON.parse(originData) as CartData;
-            if(parseData?.itemList?.length > 0) {
-                parseData.itemList.forEach((item) => {
-                    if(item.no === productNo) return false;
-                })
-            }
-        }
-        return true;
-    }*/
-    // 장바구니 상품 제거
-
-
     return {
         get,
         set,

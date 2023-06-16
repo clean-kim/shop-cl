@@ -55,6 +55,7 @@ export default function MainMobile() {
                     if (typeof swiper.params.navigation !== 'boolean') {
                         if (swiper.params.navigation && navigationPrevRef.current) {
                             swiper.params.navigation.nextEl = navigationNextRef.current;
+                            swiper.params.navigation.prevEl = navigationPrevRef.current;
                             navigationPrevRef.current.hidden = true;
                         }
                     }

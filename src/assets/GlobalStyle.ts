@@ -116,7 +116,25 @@ export const Margin = styled.div<Partial<MarginProps>>`
 export const ListLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
+
+  @media only screen and (min-width: 768px) {
+    gap: 30px 1.33%;
+  }
 `;
+
+export const ListSection = styled.section`
+  @media only screen and (min-width: 768px) {
+    margin: 0 auto;
+    width: 90%;
+    text-align: center;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
 
 export const Flex = styled(Margin)<CSSProperties>`
   display: flex;

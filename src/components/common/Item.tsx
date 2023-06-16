@@ -3,14 +3,25 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useEffect, useState} from "react";
 import Product from "@interface/Product";
-import img from '@assets/img/img.png';
 import {Link} from "react-router-dom";
+import {faker} from '@faker-js/faker';
 
 export default function Item(props: Product) {
     const [item, setItem] = useState<Product>();
+    const [fakeImg, setFakeImg] = useState('');
     useEffect(() => {
         setItem({...props});
-    }, [props]);
+        fakeImage(item?.category);
+    }, [props, item?.category]);
+    const fakeImage = async (category: string | undefined) => {
+        setFakeImg(faker.image.urlPlaceholder({
+            width: 480,
+            height: 640,
+            text: category,
+            textColor: 'ffffff',
+            backgroundColor: '171718'
+        }));
+    }
 
     const [favorite, setFavorite] = useState(false);
     const like = () => {
@@ -26,7 +37,7 @@ export default function Item(props: Product) {
                         <BackgroundAnchor to={`/detail/${item.no}`}>
                             <OuterImgBox>
                                 <InnerImgBox>
-                                    <Img src={img} alt=""/>
+                                    <Img src={fakeImg} alt=""/>
                                 </InnerImgBox>
                             </OuterImgBox>
                         </BackgroundAnchor>
@@ -64,10 +75,11 @@ const FavButtonStyle = {
 }
 
 const ItemLayout = styled.div`
-  width: 20%;
+  width: 24%;
   font-size: 13px;
   text-align: start;
   color: #0e0e0c;
+  //padding: 0 25px 35px 0;
   
   @media only screen and (max-width:768px) {
     width: 50%;
@@ -118,6 +130,10 @@ const InnerImgBox = styled.div`
 const Img = styled.img`
   max-width: 100%;
   width: 100%;
+
+  @media only screen and (min-width:768px) {
+    border-radius: 8px;
+  }
 `;
 
 const BrandName = styled.div`
