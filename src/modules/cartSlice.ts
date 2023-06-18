@@ -34,20 +34,7 @@ const cartSlice = createSlice({
             return newArr;
         },
         removeCart : (state, action: PayloadAction<number>) => {
-            /*const list: Product[] = [];
-            state.forEach((item: Product) => {
-                if(item && (item.no !== action.payload)) {
-                    list.push(item);
-                }
-            });
-            return list;
-            */
             return state.filter((item: Product) => item.no !== action.payload);
-            /*return state.map((item: Product) => {
-                if(item && (item.no !== action.payload)) {
-                    return item;
-                }
-            });*/
         }
     }
 });

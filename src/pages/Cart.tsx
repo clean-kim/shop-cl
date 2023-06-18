@@ -1,14 +1,15 @@
 import CartMobile from "@components/cart/CartMobile";
 import {M, PC} from "@components/common/MediaQuery";
 import EmptyCart from "@components/cart/EmptyCart";
-import {useAppSelector} from '@modules/store';
+import {useAppSelector} from "@modules/store";
 
 export default function Cart() {
-    const cartSlice = useAppSelector(state => state.cartSlice);
+
+    const cartSelector = useAppSelector(state => state.cartSlice);
 
     return (
         <>
-            {cartSlice.length > 0 ?
+            {cartSelector.length > 0 ?
                 <>
                     <M elem={<CartMobile />} />
                     <PC elem={<p>cart pc</p>} />

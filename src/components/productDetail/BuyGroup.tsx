@@ -1,5 +1,5 @@
 import Button, {ButtonStyleGuide} from "@components/common/Button";
-import {useAppDispatch, useAppSelector} from "@modules/store";
+import {useAppDispatch} from "@modules/store";
 import {useEffect, useState} from "react";
 import Product from "@interface/Product";
 import {addCart} from "@modules/cartSlice";
