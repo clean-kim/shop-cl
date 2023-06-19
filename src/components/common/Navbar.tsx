@@ -6,49 +6,51 @@ import "swiper/css/navigation";
 import 'swiper/swiper.min.css';
 import {Link} from 'react-router-dom';
 import {PC, M} from "@components/common/MediaQuery";
+import {useEffect, useState} from 'react';
+import NavPC from '@components/common/NavPC';
+import instance from '@api/axios';
+import NavMobile from '@components/common/NavMobile';
 
 export interface NavItem {
     value: 'Life' | 'Kitchen' | 'Tech' | 'Interior' | 'Apparel' | 'Bag' | 'Shoes';
     link: string;
 }
 
+export interface NavItemList {
+    list: NavItem[];
+}
+
+export const GetNavItemInterface: (props: any) => NavItem[] = (props) => {
+    return props.map((item: any) => {
+        return {
+            value: item.value,
+            link: item.link
+        }
+    });
+}
+
 export default function Navbar() {
     const location = useLocation();
     const pathname = location.pathname.split('/')[1];
+    const [nav, setNav] = useState<NavItemList>({list: []});
+
+    const getNavList = () => {
+        instance.get('/nav').then(res => {
+            setNav({list: GetNavItemInterface(res.data)});
+        });
+    }
+
+    useEffect(() => {
+        getNavList();
+    }, [nav]);
 
     return (
         <Nav>
-            <PC elem={
-                <ul>
-                    {NavList.map((item , i) => {
-                        return (<li key={i}>
-                            <Item to={item.link}>{item.value}</Item>
-                        </li>);
-                    })}
-                </ul>
-            } />
-            <M elem={
-                <Swiper slidesPerView={5} className='nav-swiper'>
-                    {NavList.map((item , i) => {
-                        return (<SwiperSlide key={i} className={item.link.split('/')[1] === pathname ? 'nav-slide-active' : ''} >
-                            <Item to={item.link}>{item.value}</Item>
-                        </SwiperSlide>)
-                    })}
-                </Swiper>
-            } />
+            <PC elem={<NavPC list={nav.list} pathname={pathname}/>} />
+            <M elem={<NavMobile list={nav.list} pathname={pathname} />} />
         </Nav>
     );
 }
-
-const NavList: NavItem[] = [
-    {value: 'Life', link: '/life'},
-    {value: 'Kitchen', link: '/kitchen'},
-    {value: 'Tech', link: '/tech'},
-    {value: 'Interior', link: '/interior'},
-    {value: 'Apparel', link: '/apparel'},
-    {value: 'Bag', link: '/bag'},
-    {value: 'Shoes', link: '/shoes'},
-];
 
 const Nav = styled.nav`
   //background: var(--text-04);
@@ -65,19 +67,4 @@ const Nav = styled.nav`
     height: 40px;
     min-height: 40px;
   }
-`;
-
-const Item = styled(Link)`
-  display: block;
-  width: 100%;
-  height: inherit;
-  line-height: 40px;
-  font-size: 14px;
-  font-family: 'Noto Sans KR', sans-serif;
-  font-weight: 500;
-  text-align: center;
-`;
-
-const PCNavList = styled.ul`
-  
 `;

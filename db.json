@@ -20,7 +20,7 @@
     {"no": 18, "title": "Panton Wire, Chrome | 6월초입고예정", "price": 430000, "likeCnt": 2258, "brandName": "칙바이스탠드", "category": "tech", "discountRate": 35},
     {"no": 19, "title": "진진 16평형 프리미엄 스탠드 에어컨 ASCDG24OOEW (전국무료배송/기본설치무료)", "price": 1846500, "likeCnt": 66, "brandName": "진진", "category":  "tech", "discountRate": 14}
   ],
-  "menus": [
+  "nav": [
     {"value": "Life", "link": "/life"},
     {"value": "Kitchen", "link": "/kitchen"},
     {"value": "Tech", "link": "/tech"},

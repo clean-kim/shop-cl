@@ -68,13 +68,7 @@ const GlobalStyle = createGlobalStyle`
 
   .nav-swiper {
     .nav-slide-active {
-      border-bottom: 2px solid var(--primary) !important;
-    }
-    .swiper-slide {
-      border-bottom: 2px solid transparent;
-      &:hover {
-        border-bottom-color: var(--primary);
-      }
+      border-bottom: 2px solid var(--primary);
     }
   }
 
