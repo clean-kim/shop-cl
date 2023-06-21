@@ -42,7 +42,7 @@ export default function Navbar() {
 
     useEffect(() => {
         getNavList();
-    }, [nav]);
+    }, []);
 
     return (
         <Nav>
@@ -53,17 +53,19 @@ export default function Navbar() {
 }
 
 const Nav = styled.nav`
-  //background: var(--text-04);
-  background: var(--ui-background);
-  padding: 0 10px;
-  width: 100%;
-  height: 80px;
-  min-height: 80px;
-  position: sticky;
+  padding: 0 10vw;
+  width: 100vw;
+  height: 85px;
+  min-height: 85px;
+  position: relative;
   display: flex;
-  align-items: end;
+  justify-content: center;
+  align-items: center;
   
   @media only screen and (max-width: 768px) {
+    padding: 0;
+    align-items: end;
+    
     height: 40px;
     min-height: 40px;
   }

@@ -1,21 +1,11 @@
 import styled from "styled-components";
 import Navbar from "./Navbar";
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import {Link} from "react-router-dom";
+import HeaderInner from '@components/common/HeaderInner';
 
 export default function Header() {
     return (
         <HeaderLayout>
-            <Top>
-                <Link to="/">
-                    <img src="/cl.png" alt="logo" style={{width: '30px'}}/>
-                </Link>
-                <div>
-                    <SearchButton><SearchIcon /></SearchButton>
-                    <Link to='/cart' aria-label={`장바구니 바로가기`}><ShoppingCartOutlinedIcon /></Link>
-                </div>
-            </Top>
+            <HeaderInner />
             <Navbar />
         </HeaderLayout>
     );
@@ -29,25 +19,20 @@ const HeaderLayout = styled.header`
   right: 0;
   z-index: 99;
   background: var(--ui-background);
+  width: 100%;
+  margin: 0 auto;
+
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+  box-shadow: 0px 1px 1px var(--border400);
 
   @media only screen and (max-width:768px) {
     top: 0;
     right: 0;
+
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
   }
 
 `;
 
-const Top = styled.div`
-  position: sticky;
-  height: 50px;
-  min-height: 50px;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-`;
-
-const SearchButton = styled.button.attrs({
-    type: "button"
-})`
-  margin: 0 8px;
-`;

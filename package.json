@@ -60,6 +60,7 @@
     "@craco/craco": "^7.1.0",
     "@craco/types": "^7.1.0",
     "@faker-js/faker": "^8.0.1",
+    "@types/react-modal": "^3.16.0",
     "@types/styled-components": "^5.1.26",
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
