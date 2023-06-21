@@ -3,9 +3,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
 import {useMediaQuery} from 'react-responsive';
 import Modal, {Styles} from 'react-modal';
-import ReactDom from 'react-dom';
-import ModalPortal from '@components/common/ModalPortal';
-import ReactModal from 'react-modal';
 
 export default function Search() {
     const isMobile = useMediaQuery({
@@ -43,29 +40,38 @@ export default function Search() {
     const onCloseModal = () => {
         setIsOpen(false);
     }
-
+    const parentSelector = () => document.getElementById('modal-root') as HTMLElement;
+    const overlaySelector = () => document.getElementById('root') as HTMLElement;
     return (
-        <>
-            <SearchInputBlock id="modal-root">
-                <SearchInput ref={inputRef} value={searchValue} onChange={onChange} onClick={onInputClick}/>
-                {isShow && <SearchClearButton onClick={onClear}/>}
-                {modalIsOpen &&
-                    <ReactModal
-                        isOpen={modalIsOpen}
-                        ariaHideApp={false}
-                        onRequestClose={onCloseModal}
-                        contentLabel="Modal"
-                        // style={ModalStyle}
-                        overlayClassName={`SearchModal__Overlay`}
-                        className={`SearchModal`}
-                    >
-                    </ReactModal>
-                }
+        <SearchLayout id={`modal-root`}>
+            <SearchInputBlock>
+                <div>
+                    <SearchInput ref={inputRef} value={searchValue} onChange={onChange} onClick={onInputClick}/>
+                    {isShow && <SearchClearButton onClick={onClear}/>}
+                </div>
+                <SearchButton><SearchIcon fontSize={isMobile ? `medium` : `large`}/></SearchButton>
             </SearchInputBlock>
-            <SearchButton><SearchIcon fontSize={isMobile ? `medium` : `large`}/></SearchButton>
-        </>
+            {modalIsOpen &&
+                <Modal
+                    isOpen={modalIsOpen}
+                    ariaHideApp={false}
+                    onRequestClose={onCloseModal}
+                    contentLabel="Modal"
+                    style={ModalStyle}
+                    shouldCloseOnOverlayClick={true}
+                    portalClassName={`SearchModalPortal`}
+                    parentSelector={parentSelector}
+                    overlayRef={overlaySelector}
+                >
+                </Modal>
+            }
+        </SearchLayout>
     );
 }
+
+const SearchLayout = styled.div`
+  position: relative;
+`;
 
 const SearchClearButton = styled.button.attrs({type: 'button'})`
   position: absolute;
@@ -82,7 +88,6 @@ const SearchClearButton = styled.button.attrs({type: 'button'})`
 
 const SearchInputBlock = styled.div`
   display: flex;
-  position: relative;
 `;
 
 const SearchInput = styled.input.attrs({
@@ -123,15 +128,22 @@ const SearchButton = styled.button.attrs({
 `;
 
 const ModalStyle: Styles = {
+    overlay: {
+        // position: 'relative',
+        background: 'transparent',
+        width: '100%',
+        height: '100%',
+        minHeight: '100%',
+    },
     content: {
         position: 'absolute',
-        background: '#61dafb',
-        top: 0,
+        background: 'var(--ui-background)',
+        top: '50px',
         left: 0,
-        zIndex: 100,
-        width: '35.1563vw'
-    },
-    overlay: {
-        background: 'transparent'
+        marginTop: '5px',
+        width: '35.1563vw',
+        height: '500px',
+        borderRadius: '0',
+        border: '1px solid var(--border400)'
     }
 }

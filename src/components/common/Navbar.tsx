@@ -57,7 +57,6 @@ const Nav = styled.nav`
   width: 100vw;
   height: 85px;
   min-height: 85px;
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
