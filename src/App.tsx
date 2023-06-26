@@ -10,16 +10,11 @@ function App() {
     <>
         <GlobalStyle />
         <Header />
-        <Main>
+        <main>
             <Router />
-        </Main>
+        </main>
     </>
   );
 }
 
 export default App;
-
-const Main = styled.main`
-  width: 1280px;
-  margin: 0 auto;
-`;

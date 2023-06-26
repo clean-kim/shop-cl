@@ -74,7 +74,7 @@ export default function MainPC() {
     }, []);
 
     return (
-        <section>
+        <MainPCLayout>
             <SlideBlock>
                 {
                     swiperSetting &&
@@ -101,7 +101,7 @@ export default function MainPC() {
                     })}
                 </ListLayout>
             </ListSection>
-        </section>
+        </MainPCLayout>
     );
 }
 
@@ -112,6 +112,11 @@ const SwiperList = [
     wideSlideSample4,
     wideSlideSample5
 ];
+
+const MainPCLayout = styled.section`
+  width: 1280px;
+  margin: 0 auto;
+`;
 
 const MainPCH1 = styled.h1`
   font-size: 55px;

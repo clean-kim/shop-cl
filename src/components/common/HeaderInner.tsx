@@ -34,6 +34,10 @@ const Top = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 22px 10vw 0;
+  
+  @media only screen and (max-width: 768px) {
+    padding: 10px 15px;
+  }
 `;
 
 const Logo = styled.img`
@@ -72,4 +76,9 @@ const Circle = styled.div`
   align-items: center;
   padding-top: 3.5px;
   padding-left: 3.5px;
+
+  @media only screen and (max-width: 768px) {
+    width: 35px;
+    height: 35px;
+  }
 `;

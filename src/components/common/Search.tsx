@@ -2,7 +2,9 @@ import {ChangeEvent, useEffect, useRef, useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
 import {useMediaQuery} from 'react-responsive';
-import Modal, {Styles} from 'react-modal';
+import {flushSync} from 'react-dom';
+import {Flex} from '@assets/GlobalStyle';
+import {Link} from 'react-router-dom';
 
 export default function Search() {
     const isMobile = useMediaQuery({
@@ -12,8 +14,9 @@ export default function Search() {
     const [isShow, setIsShow] = useState(false);
     const [searchValue, setSearchValue] = useState<string | number | readonly string[]>('');
     const inputRef = useRef<HTMLInputElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
 
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {value} = (e.target as HTMLInputElement);
         return setSearchValue(value);
     }
@@ -35,36 +38,51 @@ export default function Search() {
 
     const [modalIsOpen, setIsOpen] = useState(false);
     const onInputClick = () => {
-        setIsOpen(true);
+        flushSync(() => {
+            // setIsOpen(true);
+            // if(inputRef.current) inputRef.current.focus();
+            if(modalRef.current) modalRef.current.style.display = 'block';
+        });
     }
     const onCloseModal = () => {
-        setIsOpen(false);
+        // setIsOpen(false);
+        if(modalRef.current) modalRef.current.style.display = 'none';
     }
-    const parentSelector = () => document.getElementById('modal-root') as HTMLElement;
-    const overlaySelector = () => document.getElementById('root') as HTMLElement;
     return (
-        <SearchLayout id={`modal-root`}>
+        <SearchLayout>
             <SearchInputBlock>
                 <div>
-                    <SearchInput ref={inputRef} value={searchValue} onChange={onChange} onClick={onInputClick}/>
+                    <SearchInput ref={inputRef} value={searchValue} onChange={onInputChange} onFocus={onInputClick}/>
                     {isShow && <SearchClearButton onClick={onClear}/>}
                 </div>
                 <SearchButton><SearchIcon fontSize={isMobile ? `medium` : `large`}/></SearchButton>
             </SearchInputBlock>
-            {modalIsOpen &&
-                <Modal
-                    isOpen={modalIsOpen}
-                    ariaHideApp={false}
-                    onRequestClose={onCloseModal}
-                    contentLabel="Modal"
-                    style={ModalStyle}
-                    shouldCloseOnOverlayClick={true}
-                    portalClassName={`SearchModalPortal`}
-                    parentSelector={parentSelector}
-                    overlayRef={overlaySelector}
-                >
-                </Modal>
-            }
+            <Modal ref={modalRef} onBlur={onCloseModal}>
+                <Flex justifyContent={`normal`}>
+                    <Latest>
+                        <Title>최근 검색어</Title>
+                        <List>
+                            <Item>
+                                <Link to={``}>
+                                    <em>1</em>
+                                    <p>dfsasdfasdfsadfasjkhdfkjasdhfkljashfkljashfkjlahlkdfsafd</p>
+                                </Link>
+                            </Item>
+                        </List>
+                    </Latest>
+                    <Latest>
+                        <Title>인기 검색어</Title>
+                        <List>
+                            <Item>
+                                <Link to={``}>
+                                    <em>1</em>
+                                    <p>dfsasdfasdfsadfasjkhdfkjasdhfkljashfkljashfkjlahlkdfsafd</p>
+                                </Link>
+                            </Item>
+                        </List>
+                    </Latest>
+                </Flex>
+            </Modal>
         </SearchLayout>
     );
 }
@@ -127,23 +145,74 @@ const SearchButton = styled.button.attrs({
   }
 `;
 
-const ModalStyle: Styles = {
-    overlay: {
-        // position: 'relative',
-        background: 'transparent',
-        width: '100%',
-        height: '100%',
-        minHeight: '100%',
-    },
-    content: {
-        position: 'absolute',
-        background: 'var(--ui-background)',
-        top: '50px',
-        left: 0,
-        marginTop: '5px',
-        width: '35.1563vw',
-        height: '500px',
-        borderRadius: '0',
-        border: '1px solid var(--border400)'
+const Modal = styled.div`
+  position: absolute;
+  width: 35.1563vw;
+  height: 500px;
+  border: 1px solid var(--border400);
+  border-radius: 0;
+  margin-top: 5px;
+  padding: 25px 0.9375rem 0;
+  top: 50px;
+  left: 0;
+  background: var(--ui-background);
+  display: none;
+  gap: 12px;
+  color: var(--primary);
+`;
+
+const Latest = styled.div`
+  width: 50%;
+  &:first-child {
+    padding-right: 0.9375rem;
+  }
+`;
+
+const Title = styled.div`
+  font-size: 15px;
+  font-weight: 600;
+`;
+
+const List = styled.ul`
+  margin-top: 10px;
+`;
+
+const Item = styled.li`
+  margin-bottom: 5px;
+  padding-left: 5px;
+  
+  a {
+    display: flex;
+    font-size: 14px;
+    font-weight: 300;
+    em {
+      font-style: italic;
+      width: 20px;
     }
-}
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+`;
+
+// const ModalStyle: Styles = {
+//     overlay: {
+//         // position: 'relative',
+//         background: 'transparent',
+//         width: '100%',
+//         height: '100%',
+//         minHeight: '100%',
+//     },
+//     content: {
+//         position: 'absolute',
+//         background: 'var(--ui-background)',
+//         top: '50px',
+//         left: 0,
+//         marginTop: '5px',
+//         width: '35.1563vw',
+//         height: '500px',
+//         borderRadius: '0',
+//         border: '1px solid var(--border400)'
+//     }
+// }

@@ -28,5 +28,17 @@
     {"value": "Apparel", "link": "/apparel"},
     {"value": "Bag", "link": "/bag"},
     {"value": "Shoes", "link": "/shoes"}
+  ],
+  "searchRank": [
+    {"num": 1, "text": "서큘레이터"},
+    {"num": 2, "text": "선풍기"},
+    {"num": 3, "text": "에어컨"},
+    {"num": 4, "text": "청소기"},
+    {"num": 5, "text": "원터치 텐트"},
+    {"num": 6, "text": "스툴"},
+    {"num": 7, "text": "피크닉"},
+    {"num": 8, "text": "스탠드형 에어컨"},
+    {"num": 9, "text": "리넨 커튼"},
+    {"num": 10, "text": "레인부츠"}
   ]
 }
