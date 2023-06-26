@@ -9,6 +9,6 @@ Frontend 소스코드가 저장된 공간입니다.
   npm install
 
   # 로컬 서비스 구동
-  $ json-server --watch db.json
+  $ npm run server 
   $ npm start
   ```

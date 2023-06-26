@@ -1,10 +1,9 @@
-import {ChangeEvent, useEffect, useRef, useState} from 'react';
+import {ChangeEvent, MouseEvent, useEffect, useRef, useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
 import {useMediaQuery} from 'react-responsive';
-import {flushSync} from 'react-dom';
-import {Flex} from '@assets/GlobalStyle';
-import {Link} from 'react-router-dom';
+import SearchModal from '@components/common/SearchModal';
+import Storage from '@utils/Storage';
 
 export default function Search() {
     const isMobile = useMediaQuery({
@@ -36,58 +35,41 @@ export default function Search() {
         controlClearButton();
     }, [searchValue]);
 
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const onInputClick = () => {
-        flushSync(() => {
-            // setIsOpen(true);
-            // if(inputRef.current) inputRef.current.focus();
-            if(modalRef.current) modalRef.current.style.display = 'block';
-        });
+    const onInputClick = (e: MouseEvent<HTMLDivElement>) => {
+        if(modalRef.current) modalRef.current.style.visibility = 'visible';
+        if(modalRef.current) modalRef.current.style.opacity = '1';
     }
-    const onCloseModal = () => {
-        // setIsOpen(false);
-        if(modalRef.current) modalRef.current.style.display = 'none';
+    const onCloseModal = (e: MouseEvent<HTMLDivElement>) => {
+        if(modalRef.current) modalRef.current.style.visibility = 'hidden';
+        if(modalRef.current) modalRef.current.style.opacity = '0';
+    }
+
+    const onSearchButtonClick = () => {
+        Storage().arrayAdd(`search`, searchValue);
     }
     return (
         <SearchLayout>
             <SearchInputBlock>
-                <div>
-                    <SearchInput ref={inputRef} value={searchValue} onChange={onInputChange} onFocus={onInputClick}/>
+                <SearchModalPosition>
+                    <SearchInput ref={inputRef} value={searchValue} onClick={onInputClick} onChange={onInputChange}/>
                     {isShow && <SearchClearButton onClick={onClear}/>}
-                </div>
-                <SearchButton><SearchIcon fontSize={isMobile ? `medium` : `large`}/></SearchButton>
+                    <SearchModalBlock ref={modalRef}>
+                        <SearchModal onMouseLeave={onCloseModal}/>
+                    </SearchModalBlock>
+                </SearchModalPosition>
+                <SearchButton onClick={onSearchButtonClick}><SearchIcon fontSize={isMobile ? `medium` : `large`}/></SearchButton>
             </SearchInputBlock>
-            <Modal ref={modalRef} onBlur={onCloseModal}>
-                <Flex justifyContent={`normal`}>
-                    <Latest>
-                        <Title>최근 검색어</Title>
-                        <List>
-                            <Item>
-                                <Link to={``}>
-                                    <em>1</em>
-                                    <p>dfsasdfasdfsadfasjkhdfkjasdhfkljashfkljashfkjlahlkdfsafd</p>
-                                </Link>
-                            </Item>
-                        </List>
-                    </Latest>
-                    <Latest>
-                        <Title>인기 검색어</Title>
-                        <List>
-                            <Item>
-                                <Link to={``}>
-                                    <em>1</em>
-                                    <p>dfsasdfasdfsadfasjkhdfkjasdhfkljashfkljashfkjlahlkdfsafd</p>
-                                </Link>
-                            </Item>
-                        </List>
-                    </Latest>
-                </Flex>
-            </Modal>
         </SearchLayout>
     );
 }
 
 const SearchLayout = styled.div`
+  position: relative;
+  height: 50px;
+  top: 0;
+`;
+
+const SearchModalPosition = styled.div`
   position: relative;
 `;
 
@@ -107,6 +89,12 @@ const SearchClearButton = styled.button.attrs({type: 'button'})`
 const SearchInputBlock = styled.div`
   display: flex;
 `;
+
+const SearchModalBlock = styled.div`
+  visibility: hidden;
+  opacity: 0;
+`;
+
 
 const SearchInput = styled.input.attrs({
     type: 'search',
@@ -139,80 +127,9 @@ const SearchButton = styled.button.attrs({
     type: "button"
 })`
   width: 3.125rem;
+  cursor: pointer;
   
   @media only screen and (max-width: 768px) {
     margin: 0 8px;
   }
 `;
-
-const Modal = styled.div`
-  position: absolute;
-  width: 35.1563vw;
-  height: 500px;
-  border: 1px solid var(--border400);
-  border-radius: 0;
-  margin-top: 5px;
-  padding: 25px 0.9375rem 0;
-  top: 50px;
-  left: 0;
-  background: var(--ui-background);
-  display: none;
-  gap: 12px;
-  color: var(--primary);
-`;
-
-const Latest = styled.div`
-  width: 50%;
-  &:first-child {
-    padding-right: 0.9375rem;
-  }
-`;
-
-const Title = styled.div`
-  font-size: 15px;
-  font-weight: 600;
-`;
-
-const List = styled.ul`
-  margin-top: 10px;
-`;
-
-const Item = styled.li`
-  margin-bottom: 5px;
-  padding-left: 5px;
-  
-  a {
-    display: flex;
-    font-size: 14px;
-    font-weight: 300;
-    em {
-      font-style: italic;
-      width: 20px;
-    }
-    p {
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-`;
-
-// const ModalStyle: Styles = {
-//     overlay: {
-//         // position: 'relative',
-//         background: 'transparent',
-//         width: '100%',
-//         height: '100%',
-//         minHeight: '100%',
-//     },
-//     content: {
-//         position: 'absolute',
-//         background: 'var(--ui-background)',
-//         top: '50px',
-//         left: 0,
-//         marginTop: '5px',
-//         width: '35.1563vw',
-//         height: '500px',
-//         borderRadius: '0',
-//         border: '1px solid var(--border400)'
-//     }
-// }

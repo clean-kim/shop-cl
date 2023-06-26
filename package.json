@@ -17,7 +17,6 @@
     "@types/react-dom": "^18.2.1",
     "@types/react-responsive": "^8.0.5",
     "axios": "^1.4.0",
-    "json-server": "^0.17.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",
@@ -36,7 +35,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server --watch db.json --port 3005"
   },
   "eslintConfig": {
     "extends": [
@@ -66,6 +66,7 @@
     "@typescript-eslint/parser": "^5.59.6",
     "craco-alias": "^3.0.1",
     "eslint": "^8.40.0",
-    "eslint-plugin-react": "^7.32.2"
+    "eslint-plugin-react": "^7.32.2",
+    "json-server": "^0.17.3"
   }
 }
