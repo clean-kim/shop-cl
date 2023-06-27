@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:3005',
+    baseURL: 'https://my-json-server.typicode.com/clean-kim/json-server',
     timeout: 1000
 })
 
