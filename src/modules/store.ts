@@ -1,6 +1,7 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import productSlice from "@modules/productSlice";
 import cartSlice from "@modules/cartSlice";
+import searchSlice from "@modules/searchSlice";
 import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
 import storage from 'redux-persist/es/storage';
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
@@ -12,7 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     productSlice,
-    cartSlice
+    cartSlice,
+    searchSlice
 });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 const store = configureStore({

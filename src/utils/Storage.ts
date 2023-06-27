@@ -15,12 +15,14 @@ export default function Storage() {
 
     const arrayAdd = (key: string, value: any) => {
         const arr = JSON.parse(localStorage.getItem(`${prefix+key}`) ?? '[]');
-        if(arr.length > 0 && arrayContains(arr, value)) {
-            arr.push(value);
-            set(key, JSON.stringify(arr));
-        } else {
-            set(key, JSON.stringify([value]));
+        if(arr.length > 0) {
+            if (!arrayContains(arr, value)) {
+                const idx = arr.indexOf(value);
+                arr.splice(idx, 1);
+            }
         }
+        arr.push(value);
+        set(key, JSON.stringify(arr));
     }
 
     const getArray = (key: string) => {
@@ -28,10 +30,16 @@ export default function Storage() {
     }
 
     const arrayContains = (arr: [], target: string): boolean => {
+        let result = true;
         arr.forEach(item => {
-            return item !== target;
+            if(item === target) result = false;
         });
-        return true;
+        return result;
+    }
+
+    const removeArray = (key: string, value: string) => {
+        const arr = JSON.parse(localStorage.getItem(`${prefix+key}`) ?? '[]');
+        set(key, JSON.stringify(arr.filter((item: any) => item !== value)));
     }
 
     return {
@@ -39,6 +47,7 @@ export default function Storage() {
         set,
         remove,
         arrayAdd,
-        getArray
+        getArray,
+        removeArray
     };
 }

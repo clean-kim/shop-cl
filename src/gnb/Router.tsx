@@ -12,7 +12,7 @@ export default function Router() {
             <Route path='/:category' element={<CategoryList />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/detail/:no' element={<ProductDetail />} />
-            <Route path='/search/:title' element={<SearchResult />} />
+            <Route path='/search' element={<SearchResult />} />
         </Routes>
     )
 }

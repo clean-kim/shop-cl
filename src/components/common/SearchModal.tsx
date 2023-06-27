@@ -23,14 +23,26 @@ export default function SearchModal({onMouseLeave}: SearchModalProps) {
             );
         });
     }
-    const [recentSearchList, setRecentSearchList] = useState<string[]>([]);
+    const [searchHistory, setSearchHistory] = useState<string[]>([]);
     const getRecentSearch = () => {
-        setRecentSearchList(Storage().getArray('search').reverse());
+        setSearchHistory(Storage().getArray('search').reverse());
     }
     useEffect(() => {
         getSearchRank();
         getRecentSearch();
     }, []);
+
+    // 검색 내역 개별 삭제
+    const onClickRemoveHistory = (e: MouseEvent<HTMLButtonElement>) => {
+        removeHistory(e.currentTarget.value);
+    }
+    const removeHistory = (value: string) => {
+        Storage().removeArray('search', value);
+    }
+    // 검색 내역 전체 삭제
+    const onClickRemoveAllHistory = (e: MouseEvent<HTMLButtonElement>) => {
+        Storage().remove('search');
+    }
 
     return (
         <Modal onMouseLeave={onMouseLeave}>
@@ -38,17 +50,22 @@ export default function SearchModal({onMouseLeave}: SearchModalProps) {
                 <Title>최근 검색어</Title>
                 <List>
                     {
-                        recentSearchList.length > 0
+                        searchHistory.length > 0
                         ?
-                            recentSearchList.map((item, i) => {
-                                return <Item key={i}>
-                                        <Link to={`/search/${item}`}>
-                                            <p>{item}</p>
-                                        </Link>
-                                    </Item>;
+                            searchHistory.map((item, i) => {
+                                return (
+                                    <Item key={i}>
+                                        <HistoryBlock>
+                                            <Link to={`/search/${item}`}>
+                                                <p>{item}</p>
+                                            </Link>
+                                            <RemoveButton value={item} onClick={onClickRemoveHistory} />
+                                        </HistoryBlock>
+                                    </Item>
+                                );
                             })
                         :
-                            <p>최근 검색어가 없습니다.</p>
+                            <Item>최근 검색어 내역이 없습니다.</Item>
                     }
                 </List>
             </Latest>
@@ -106,19 +123,40 @@ const List = styled.ul`
 
 const Item = styled.li`
   margin-bottom: 10px;
-  padding-left: 5px;
-  
+  padding-left: 8px;
+  font-size: 14px;
+  font-weight: 300;
+  word-break: break-word;
+
   a {
     display: flex;
-    font-size: 14px;
-    font-weight: 300;
+
     em {
       font-style: italic;
       width: 20px;
     }
+
     p {
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
+`;
+
+const HistoryBlock = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+`;
+
+const RemoveButton = styled.button.attrs({type: 'button'})`
+  width: 30px;
+  height: 14px;
+  background: url(https://img.icons8.com/pastel-glyph/2x/cancel.png) center center no-repeat;
+  background-size: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
 `;

@@ -4,8 +4,12 @@ import styled from 'styled-components';
 import {useMediaQuery} from 'react-responsive';
 import SearchModal from '@components/common/SearchModal';
 import Storage from '@utils/Storage';
+import {useNavigate} from 'react-router';
+import {useAppDispatch, useAppSelector} from '@modules/store';
+import {setCurrentSearchValue} from '@modules/searchSlice';
 
 export default function Search() {
+    const searchSelector = useAppSelector(state => state.searchSlice);
     const isMobile = useMediaQuery({
         query: '(max-width: 768px)'
     });
@@ -31,9 +35,13 @@ export default function Search() {
         }
     }
 
+    const selectorValue = (value: string) => {
+        setSearchValue(value);
+    }
     useEffect(() => {
+        selectorValue(searchSelector);
         controlClearButton();
-    }, [searchValue]);
+    }, [searchSelector]);
 
     const onInputClick = (e: MouseEvent<HTMLDivElement>) => {
         if(modalRef.current) modalRef.current.style.visibility = 'visible';
@@ -44,8 +52,12 @@ export default function Search() {
         if(modalRef.current) modalRef.current.style.opacity = '0';
     }
 
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const onSearchButtonClick = () => {
         Storage().arrayAdd(`search`, searchValue);
+        navigate(`/search`);
+        dispatch(setCurrentSearchValue(searchValue.toString()));
     }
     return (
         <SearchLayout>
@@ -57,7 +69,10 @@ export default function Search() {
                         <SearchModal onMouseLeave={onCloseModal}/>
                     </SearchModalBlock>
                 </SearchModalPosition>
-                <SearchButton onClick={onSearchButtonClick}><SearchIcon fontSize={isMobile ? `medium` : `large`}/></SearchButton>
+                <SearchButton onClick={onSearchButtonClick}>
+                    <SearchIcon fontSize={isMobile ? `medium` : `large`}/>
+                    <HiddenText>검색</HiddenText>
+                </SearchButton>
             </SearchInputBlock>
         </SearchLayout>
     );
@@ -127,9 +142,22 @@ const SearchButton = styled.button.attrs({
     type: "button"
 })`
   width: 3.125rem;
+  position: relative;
   cursor: pointer;
   
   @media only screen and (max-width: 768px) {
     margin: 0 8px;
   }
+`;
+
+const HiddenText = styled.span`
+  position: absolute;
+  display: inline-block;
+  width: 1px; 
+  height: 1px;
+  top: 0;
+  left: 0;
+  font-size: 1px;
+  line-height: 100px;
+  overflow: hidden;
 `;
