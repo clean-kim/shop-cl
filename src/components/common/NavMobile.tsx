@@ -14,14 +14,14 @@ export default function NavMobile(props: NavItemList & { pathname: string }) {
 
     return (
         <Swiper slidesPerView={5} className='nav-swiper'>
-        {nav.list.map((item , i) => {
-            return (
-                <SwiperSlide key={i} className={item.link.split('/')[1] === pathname ? 'nav-slide-active' : ''} >
-                    <Item to={item.link}>{item.value}</Item>
-                </SwiperSlide>
-            );
-        })}
-    </Swiper>
+            {nav.list.map((item , i) => {
+                return (
+                    <SwiperSlide key={i} className={item.link.split('/')[1] === pathname ? 'nav-slide-active' : ''} >
+                        <Item to={item.link}>{item.value}</Item>
+                    </SwiperSlide>
+                );
+            })}
+        </Swiper>
     );
 }
 

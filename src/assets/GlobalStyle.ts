@@ -90,10 +90,6 @@ const GlobalStyle = createGlobalStyle`
     .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
       background: var(--primary);
     }
-
-    .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
-      
-    }
   }
 `;
 

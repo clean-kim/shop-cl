@@ -1,10 +1,35 @@
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import HeaderInner from '@components/common/HeaderInner';
+import {useRef} from 'react';
+import {useMediaQuery} from 'react-responsive';
 
 export default function Header() {
+    const isMobile = useMediaQuery({
+        query: '(max-width: 768px)'
+    });
+
+    const navRef = useRef<HTMLElement>(null);
+    if (isMobile) {
+        // 메뉴바 스크롤 이벤트
+        let prevScrollPos = window.scrollY;
+        window.onscroll = function() {
+            const currentScrollPos = window.pageYOffset;
+            if(navRef.current) {
+                if (prevScrollPos > currentScrollPos) {
+                    navRef.current.style.top = '0';
+                }
+                else {
+                    navRef.current.style.top = '-50px';
+                }
+                navRef.current.style.transition = 'all 300ms';
+            }
+            prevScrollPos = currentScrollPos;
+        }
+
+    }
     return (
-        <HeaderLayout>
+        <HeaderLayout ref={navRef}>
             <HeaderInner />
             <Navbar />
         </HeaderLayout>
