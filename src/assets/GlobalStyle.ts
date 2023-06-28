@@ -17,6 +17,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: #ffffff;
+    color: #171718;
     font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
 
@@ -52,6 +53,7 @@ const GlobalStyle = createGlobalStyle`
     --ui-background: #ffffff;
     --ui-01: #fafafa;
     --ui-02: #f5f5f5;
+    --ui-03: #eeeeee;
     --ui-transparent: transparent; 
     --border50: #fafafa;
     --border100: #f5f5f5;
@@ -92,11 +94,6 @@ const GlobalStyle = createGlobalStyle`
     .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
       
     }
-  }
-  
-  .SearchModalPortal {
-    position: relative;
-    height: 100%
   }
 `;
 
@@ -140,10 +137,35 @@ export const ListSection = styled.section`
   }
 `;
 
-
 export const Flex = styled(Margin)<CSSProperties>`
   display: flex;
   flex-direction: ${({flexDirection}) => flexDirection ?? 'row'};
   justify-content: ${({justifyContent}) => justifyContent ?? `center`};
   align-items: ${({alignItems}) => alignItems ?? `center`};
+`;
+
+
+export const SearchButton = styled.button.attrs({
+  type: "button"
+})`
+  width: 3.125rem;
+  position: relative;
+  cursor: pointer;
+  
+  @media only screen and (max-width: 768px) {
+    margin: 0;
+    width: fit-content;
+  }
+`;
+
+export const HiddenText = styled.span`
+  position: absolute;
+  display: inline-block;
+  width: 1px; 
+  height: 1px;
+  top: 0;
+  left: 0;
+  font-size: 1px;
+  line-height: 100px;
+  overflow: hidden;
 `;

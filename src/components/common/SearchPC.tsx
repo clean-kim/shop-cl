@@ -1,19 +1,15 @@
-import {ChangeEvent, MouseEvent, useEffect, useRef, useState} from 'react';
+import {ChangeEvent, MouseEvent, KeyboardEvent, useEffect, useRef, useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import styled from 'styled-components';
-import {useMediaQuery} from 'react-responsive';
-import SearchModal from '@components/common/SearchModal';
+import SearchModalPC from '@components/common/SearchModalPC';
 import Storage from '@utils/Storage';
 import {useNavigate} from 'react-router';
 import {useAppDispatch, useAppSelector} from '@modules/store';
 import {setCurrentSearchValue} from '@modules/searchSlice';
+import {SearchButton, HiddenText} from '@assets/GlobalStyle';
 
-export default function Search() {
+export default function SearchPC() {
     const searchSelector = useAppSelector(state => state.searchSlice);
-    const isMobile = useMediaQuery({
-        query: '(max-width: 768px)'
-    });
-
     const [isShow, setIsShow] = useState(false);
     const [searchValue, setSearchValue] = useState<string | number | readonly string[]>('');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -59,18 +55,26 @@ export default function Search() {
         navigate(`/search`);
         dispatch(setCurrentSearchValue(searchValue.toString()));
     }
+
+    const searchBtnRef = useRef<HTMLButtonElement>(null);
+    const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            searchBtnRef.current?.click();
+        }
+    }
     return (
         <SearchLayout>
             <SearchInputBlock>
                 <SearchModalPosition>
-                    <SearchInput ref={inputRef} value={searchValue} onClick={onInputClick} onChange={onInputChange}/>
+                    <SearchInput ref={inputRef} value={searchValue} onKeyPress={onKeyPress} onClick={onInputClick} onChange={onInputChange}/>
                     {isShow && <SearchClearButton onClick={onClear}/>}
                     <SearchModalBlock ref={modalRef}>
-                        <SearchModal onMouseLeave={onCloseModal}/>
+                        <SearchModalPC onMouseLeave={onCloseModal}/>
                     </SearchModalBlock>
                 </SearchModalPosition>
-                <SearchButton onClick={onSearchButtonClick}>
-                    <SearchIcon fontSize={isMobile ? `medium` : `large`}/>
+                <SearchButton ref={searchBtnRef} onClick={onSearchButtonClick}>
+                    <SearchIcon fontSize={`large`}/>
                     <HiddenText>검색</HiddenText>
                 </SearchButton>
             </SearchInputBlock>
@@ -110,7 +114,6 @@ const SearchModalBlock = styled.div`
   opacity: 0;
 `;
 
-
 const SearchInput = styled.input.attrs({
     type: 'search',
     placeholder: 'Search',
@@ -136,28 +139,4 @@ const SearchInput = styled.input.attrs({
   &::-webkit-search-results-decoration {
     display: none;
   }
-`;
-
-const SearchButton = styled.button.attrs({
-    type: "button"
-})`
-  width: 3.125rem;
-  position: relative;
-  cursor: pointer;
-  
-  @media only screen and (max-width: 768px) {
-    margin: 0 8px;
-  }
-`;
-
-const HiddenText = styled.span`
-  position: absolute;
-  display: inline-block;
-  width: 1px; 
-  height: 1px;
-  top: 0;
-  left: 0;
-  font-size: 1px;
-  line-height: 100px;
-  overflow: hidden;
 `;

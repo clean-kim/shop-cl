@@ -13,7 +13,7 @@ interface SearchRank {
     value: string;
 }
 
-export default function SearchModal({onMouseLeave}: SearchModalProps) {
+export default function SearchModalPC({onMouseLeave}: SearchModalProps) {
 
     const [rankList, setRankList] = useState<SearchRank[]>([]);
     const getSearchRank = () => {
