@@ -99,6 +99,16 @@ const GlobalStyle = createGlobalStyle`
 
 export default GlobalStyle;
 
+import { createTheme } from '@mui/material/styles';
+
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#171718'
+    }
+  }
+});
+
 interface MarginProps {
   margin: string;
   mt: number;
