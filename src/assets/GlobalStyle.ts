@@ -32,7 +32,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Maven Pro', sans-serif;
+    font-family: -apple-system;
   }
 
   ol, ul, li {
@@ -133,13 +133,12 @@ export const ListLayout = styled.div`
 `;
 
 export const ListSection = styled.section`
-  @media only screen and (min-width: 768px) {
-    margin: 0 auto;
-    width: 90%;
-    text-align: center;
-  }
+  margin: 50px auto 0;
+  width: 90%;
+  text-align: center;
 
   @media only screen and (max-width: 768px) {
+    margin: 0;
     width: 100%;
   }
 `;

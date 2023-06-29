@@ -92,7 +92,7 @@ const ItemLayout = styled.div`
   }
 `;
 
-const FavoriteButton = styled.button.attrs({type: 'button'})`
+export const FavoriteButton = styled.button.attrs({type: 'button'})`
   text-align: start;
   padding: 0;
   cursor: pointer;

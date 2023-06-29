@@ -10,24 +10,27 @@ export default function Header() {
     });
 
     const navRef = useRef<HTMLElement>(null);
-    if (isMobile) {
-        // 메뉴바 스크롤 이벤트
-        let prevScrollPos = window.scrollY;
-        window.onscroll = function() {
-            const currentScrollPos = window.pageYOffset;
-            if(navRef.current) {
-                if (prevScrollPos > currentScrollPos) {
-                    navRef.current.style.top = '0';
-                }
-                else {
-                    navRef.current.style.top = '-50px';
-                }
-                navRef.current.style.transition = 'all 300ms';
-            }
-            prevScrollPos = currentScrollPos;
-        }
 
+    // 메뉴바 스크롤 이벤트
+    let prevScrollPos = window.scrollY;
+    window.onscroll = function() {
+        const currentScrollPos = window.pageYOffset;
+        if(navRef.current) {
+            if (prevScrollPos > currentScrollPos) {
+                navRef.current.style.top = '0';
+            }
+            else {
+                if (isMobile) {
+                    navRef.current.style.top = '-50px';
+                } else {
+                    navRef.current.style.top = '-75px';
+                }
+            }
+            navRef.current.style.transition = 'all 300ms';
+        }
+        prevScrollPos = currentScrollPos;
     }
+
     return (
         <HeaderLayout ref={navRef}>
             <HeaderInner />

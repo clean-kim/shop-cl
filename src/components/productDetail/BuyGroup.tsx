@@ -32,7 +32,7 @@ export default function BuyGroup(props: Product) {
 }
 
 const SetStyle = {
-    width: '154px',
+    width: '9.625rem',
     height: '47px'
 }
 
