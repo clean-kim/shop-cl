@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import GlobalStyle from "./assets/GlobalStyle";
 import Header from "./components/common/Header";
@@ -6,7 +6,10 @@ import Router from "./gnb/Router";
 import styled from 'styled-components';
 
 function App() {
-  return (
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+
+    return (
     <>
         <GlobalStyle />
         <Header />

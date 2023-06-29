@@ -6,7 +6,6 @@ import CartItemMobile from '@components/cart/CartItemMobile';
 
 export default function CartMobile() {
     const cartSelector = useAppSelector(state => state.cartSlice);
-    console.log('cartSelector >> ', cartSelector);
     return (
         <CartMobileBox>
             {cartSelector.map((item: Product, i) => {
@@ -18,7 +17,7 @@ export default function CartMobile() {
 
 const CartMobileBox = styled.div`
   width: 100%;
-  height: 100vh;
+  margin-top: 30%;
   padding: 16px;
   background: var(--ui-01);
 `;

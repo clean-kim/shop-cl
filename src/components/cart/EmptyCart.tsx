@@ -3,6 +3,7 @@ import {Margin} from "@assets/GlobalStyle";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 export default function EmptyCart() {
+
     return (
         <EmptyCartLayout>
             <div>
@@ -18,11 +19,15 @@ export default function EmptyCart() {
 
 const EmptyCartLayout = styled.div`
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: calc((var(--vh, 100vh) * 100) - 160px);
+  
+  @media only screen and (max-width: 768px) {
+    height: calc((var(--vh, 100vh) * 100) - 90px);
+  }
 `;
 
 const EmptyText = styled.p`

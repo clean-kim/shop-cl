@@ -4,9 +4,7 @@ import EmptyCart from "@components/cart/EmptyCart";
 import {useAppSelector} from "@modules/store";
 
 export default function Cart() {
-
     const cartSelector = useAppSelector(state => state.cartSlice);
-
     return (
         <>
             {cartSelector.length > 0 ?

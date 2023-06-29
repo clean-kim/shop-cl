@@ -1,11 +1,9 @@
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
-import {MouseEvent, useEffect, useState} from 'react';
+import {MouseEvent, useCallback, useEffect, useState} from 'react';
 import instance from '@api/axios';
 import Storage from '@utils/Storage';
-import {useAppDispatch} from '@modules/store';
-import {setCurrentSearchValue} from '@modules/searchSlice';
-import {useNavigate} from 'react-router';
+import {Flex} from '@assets/GlobalStyle';
 
 interface SearchModalProps {
     onMouseLeave: (e: MouseEvent<HTMLDivElement>) => void;
@@ -27,37 +25,45 @@ export default function SearchModalPC({onMouseLeave}: SearchModalProps) {
         });
     }
     const [searchHistory, setSearchHistory] = useState<string[]>([]);
-    const getRecentSearch = () => {
-        setSearchHistory(Storage().getArray('search').reverse());
-    }
-    useEffect(() => {
-        getSearchRank();
-        getRecentSearch();
+    const getRecentSearch = useCallback(() => {
+        setSearchHistory([...Storage().getArray('search').reverse()]);
     }, []);
 
-    // 검색 내역 개별 삭제
-    const onClickRemoveHistory = (e: MouseEvent<HTMLButtonElement>) => {
-        removeHistory(e.currentTarget.value);
-    }
+    useEffect(() => {
+        getSearchRank();    // 인기 검색어 리스트
+        getRecentSearch();  // 최근 검색어 리스트
+    }, []);
+
     const removeHistory = (value: string) => {
         Storage().removeArray('search', value);
+        getRecentSearch();
     }
+
     // 검색 내역 전체 삭제
     const onClickRemoveAllHistory = (e: MouseEvent<HTMLButtonElement>) => {
         Storage().remove('search');
+        getRecentSearch();
+    }
+    // 검색 내역 개별 삭제
+    const onClickRemoveHistory = (e: MouseEvent<HTMLButtonElement>) => {
+        removeHistory(e.currentTarget.value);
     }
 
     const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
         const {lastChild} = e.currentTarget;
         if(lastChild && lastChild.textContent) {
             Storage().arrayAdd(`search`, lastChild.textContent);
+            getRecentSearch();
         }
     }
 
     return (
         <Modal onMouseLeave={onMouseLeave}>
             <Latest>
-                <Title>최근 검색어</Title>
+                <Flex justifyContent={`space-between`}>
+                    <Title>최근 검색어</Title>
+                    {searchHistory.length > 0 && <RemoveAllButton onClick={onClickRemoveAllHistory}>전체삭제</RemoveAllButton>}
+                </Flex>
                 <List>
                     {
                         searchHistory.length > 0
@@ -159,6 +165,15 @@ const HistoryBlock = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+`;
+
+const RemoveAllButton = styled.button.attrs({type: 'button'})`
+  font-size: 12px;
+  font-weight: 300;
+  border: none;
+  outline: none;
+  color: var(--primary);
+  cursor: pointer;
 `;
 
 const RemoveButton = styled.button.attrs({type: 'button'})`

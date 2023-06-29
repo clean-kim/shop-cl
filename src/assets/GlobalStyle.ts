@@ -8,7 +8,6 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     list-style: none;
-    font-family: 'Noto Sans KR', sans-serif;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
@@ -66,6 +65,8 @@ const GlobalStyle = createGlobalStyle`
     --text-04: #858585;
     --text-05: #bbbbbb;
     --text-06: #ffffff;
+
+    --vh: 100%;
   }
 
   .nav-swiper {
