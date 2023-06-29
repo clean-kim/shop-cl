@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import {MouseEvent, useEffect, useState} from 'react';
 import instance from '@api/axios';
 import Storage from '@utils/Storage';
+import {useAppDispatch} from '@modules/store';
+import {setCurrentSearchValue} from '@modules/searchSlice';
+import {useNavigate} from 'react-router';
 
 interface SearchModalProps {
     onMouseLeave: (e: MouseEvent<HTMLDivElement>) => void;
@@ -44,6 +47,13 @@ export default function SearchModalPC({onMouseLeave}: SearchModalProps) {
         Storage().remove('search');
     }
 
+    const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+        const {lastChild} = e.currentTarget;
+        if(lastChild && lastChild.textContent) {
+            Storage().arrayAdd(`search`, lastChild.textContent);
+        }
+    }
+
     return (
         <Modal onMouseLeave={onMouseLeave}>
             <Latest>
@@ -56,7 +66,7 @@ export default function SearchModalPC({onMouseLeave}: SearchModalProps) {
                                 return (
                                     <Item key={i}>
                                         <HistoryBlock>
-                                            <Link to={`/search/${item}`}>
+                                            <Link to={`/search?keyword=${item}`} onClick={onClick}>
                                                 <p>{item}</p>
                                             </Link>
                                             <RemoveButton value={item} onClick={onClickRemoveHistory} />
@@ -76,7 +86,7 @@ export default function SearchModalPC({onMouseLeave}: SearchModalProps) {
                         rankList.length > 0 && rankList.map((item: SearchRank) => {
                             return (
                                 <Item key={item.rank}>
-                                    <Link to={``}>
+                                    <Link to={`/search?keyword=${item.value}`} onClick={onClick}>
                                         <em>{item.rank}</em>
                                         <p>{item.value}</p>
                                     </Link>

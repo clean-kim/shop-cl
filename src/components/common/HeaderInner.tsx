@@ -13,7 +13,7 @@ export default function HeaderInner() {
 
     return (
         <Top>
-            <Link to="/">
+            <Link to="/" reloadDocument={true}>
                 <Logo src="/cl.png" alt="logo" />
             </Link>
             <InheritBlock>

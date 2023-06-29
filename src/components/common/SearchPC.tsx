@@ -4,40 +4,38 @@ import styled from 'styled-components';
 import SearchModalPC from '@components/common/SearchModalPC';
 import Storage from '@utils/Storage';
 import {useNavigate} from 'react-router';
-import {useAppDispatch, useAppSelector} from '@modules/store';
-import {setCurrentSearchValue} from '@modules/searchSlice';
 import {SearchButton, HiddenText} from '@assets/GlobalStyle';
+import {useSearchParams} from 'react-router-dom';
 
 export default function SearchPC() {
-    const searchSelector = useAppSelector(state => state.searchSlice);
     const [isShow, setIsShow] = useState(false);
-    const [searchValue, setSearchValue] = useState<string | number | readonly string[]>('');
+    const [keyword, setKeyword] = useState<string | number | readonly string[]>('');
     const inputRef = useRef<HTMLInputElement>(null);
     const modalRef = useRef<HTMLDivElement>(null);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const keywordParam = searchParams.get('keyword') ?? '';
 
-    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const {value} = (e.target as HTMLInputElement);
-        return setSearchValue(value);
-    }
-    const onClear = () => {
-        setSearchValue('');
-        if(inputRef.current) inputRef.current.focus();
-    }
-    const controlClearButton = () => {
-        if(searchValue) {
+        setKeyword(value);
+        if(value.length > 0) {
             setIsShow(true);
         } else {
             setIsShow(false);
         }
     }
+    const onClear = () => {
+        setKeyword('');
+        setIsShow(false);
+        if(inputRef.current) inputRef.current.focus();
+    }
 
-    const selectorValue = (value: string) => {
-        setSearchValue(value);
+    const setKeywordValue = (value: string) => {
+        setKeyword(value);
     }
     useEffect(() => {
-        selectorValue(searchSelector);
-        controlClearButton();
-    }, [searchSelector]);
+        setKeywordValue(keywordParam);
+    }, [keywordParam]);
 
     const onInputClick = (e: MouseEvent<HTMLDivElement>) => {
         if(modalRef.current) modalRef.current.style.visibility = 'visible';
@@ -49,11 +47,9 @@ export default function SearchPC() {
     }
 
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
     const onSearchButtonClick = () => {
-        Storage().arrayAdd(`search`, searchValue);
-        navigate(`/search`);
-        dispatch(setCurrentSearchValue(searchValue.toString()));
+        Storage().arrayAdd(`search`, keyword);
+        navigate(`/search?keyword=${keyword}`);
     }
 
     const searchBtnRef = useRef<HTMLButtonElement>(null);
@@ -63,11 +59,12 @@ export default function SearchPC() {
             searchBtnRef.current?.click();
         }
     }
+
     return (
         <SearchLayout>
             <SearchInputBlock>
                 <SearchModalPosition>
-                    <SearchInput ref={inputRef} value={searchValue} onKeyPress={onKeyPress} onClick={onInputClick} onChange={onInputChange}/>
+                    <SearchInput ref={inputRef} value={keyword} onKeyPress={onKeyPress} onClick={onInputClick} onChange={onChange}/>
                     {isShow && <SearchClearButton onClick={onClear}/>}
                     <SearchModalBlock ref={modalRef}>
                         <SearchModalPC onMouseLeave={onCloseModal}/>
@@ -117,7 +114,8 @@ const SearchModalBlock = styled.div`
 const SearchInput = styled.input.attrs({
     type: 'search',
     placeholder: 'Search',
-    name: 'search'
+    name: 'search',
+    autoComplete: 'off'
 })`
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 1rem;

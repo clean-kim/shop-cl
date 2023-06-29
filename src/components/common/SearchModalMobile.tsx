@@ -19,8 +19,6 @@ interface SearchRank {
 }
 
 export default function SearchModalMobile({isModalOpen, onRequestClose}: SearchModalMobileProps) {
-    // const searchSelector = useAppSelector(state => state.searchSlice);
-    const [isShow, setIsShow] = useState(false);
     const [searchValue, setSearchValue] = useState<string | number | readonly string[]>('');
     const [rankList, setRankList] = useState<SearchRank[]>([]);
 
@@ -120,7 +118,7 @@ export default function SearchModalMobile({isModalOpen, onRequestClose}: SearchM
                             rankList.length > 0 && rankList.map((item: SearchRank) => {
                                 return (
                                     <Item key={item.rank}>
-                                        <Link to={``}>
+                                        <Link to={`/search/${item.value}`}>
                                             <em>{item.rank}</em>
                                             <p>{item.value}</p>
                                         </Link>
