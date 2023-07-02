@@ -4,6 +4,7 @@ import {useEffect, useState} from 'react';
 import RemoveButton from '@components/common/RemoveButton';
 import {useAppDispatch} from '@modules/store';
 import {removeCart} from '@modules/cartSlice';
+import ProductBox from "@components/cart/ProductBox";
 
 export default function CartItemMobile(props: Product) {
     const [cartItem, setCartItem] = useState<Product>();

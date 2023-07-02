@@ -7,12 +7,14 @@ import BuyGroup from "@components/productDetail/BuyGroup";
 import {useParams} from 'react-router';
 import instance from '@api/axios';
 import Product, {GetProductInterface} from '@interface/Product';
-import {ListSection, Flex} from '@assets/GlobalStyle';
+import {ListSection, Flex, theme} from '@assets/GlobalStyle';
 import {useMediaQuery} from 'react-responsive';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {FavoriteButton} from '@components/common/Item';
 import {faker} from '@faker-js/faker';
+import SearchIcon from "@mui/icons-material/Search";
+import {ThemeProvider} from "@mui/material";
 
 type MoreButtonProps = {open: boolean;}
 
@@ -73,7 +75,15 @@ export default function ProductDetail() {
                     <TitleSection>
                         <Title>{item.title}</Title>
                         <FavoriteButton onClick={like}>
-                            {favorite ? <FavoriteIcon style={{width: '1.375rem'}}/> : <FavoriteBorderIcon style={{width: '1.375rem'}}/>}
+                            {favorite ?
+                                <ThemeProvider theme={theme}>
+                                    <FavoriteIcon style={{width: '1.375rem'}} color={`primary`}/>
+                                </ThemeProvider>
+                                :
+                                <ThemeProvider theme={theme}>
+                                    <FavoriteBorderIcon style={{width: '1.375rem'}} color={`primary`}/>
+                                </ThemeProvider>
+                            }
                         </FavoriteButton>
                     </TitleSection>
                     <PriceBox>
@@ -101,10 +111,10 @@ export default function ProductDetail() {
                     </BottomBlock>
                 </InfoSection>
             </InfoBlock>
+            <DetailTextSection>
+                <H1>DETAIL</H1>
+            </DetailTextSection>
             <ProductImageBox>
-                <DetailTextSection>
-                    <H1>DETAIL</H1>
-                </DetailTextSection>
                 <ImageBox open={open}>
                     <img src={long_img} alt="상품 이미지"/>
                     <img src={long_img} alt="상품 이미지"/>
@@ -267,12 +277,9 @@ const BrandBox = styled.div`
 `;
 
 const ProductImageBox = styled.div`
-  margin-top: 80px;
   position: relative;
-
-  @media only screen and (max-width: 768px) {
-    margin-top: 50px;
-  }
+  max-width: 1000px;
+  margin: 0 auto;
 `;
 
 const MoreBox = styled.div<MoreButtonProps>`
@@ -319,6 +326,7 @@ const MoreIcon = styled.svg<MoreButtonProps>`
 
 const ImageBox = styled.div<MoreButtonProps>`
   ${({open}) => !open && css`
+    max-height: 1500px;
     @media only screen and (max-width: 768px) {
       max-height: 1000px;
     }
@@ -327,9 +335,10 @@ const ImageBox = styled.div<MoreButtonProps>`
 `;
 
 const DetailTextSection = styled.section`
-  margin-bottom: 50px;
+  margin: 80px 0 50px;
 
   @media only screen and (max-width: 768px) {
+    margin-top: 50px;
     padding: 0 8px;
   }
 `;

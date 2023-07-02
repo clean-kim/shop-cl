@@ -109,7 +109,7 @@ export default function SearchModalPC({onMouseLeave}: SearchModalProps) {
 const Modal = styled.div`
   position: absolute;
   width: 100%;
-  height: 300px;
+  height: 310px;
   border: 1px solid var(--border400);
   border-radius: 0;
   margin-top: 5px;

@@ -5,6 +5,8 @@ import {useEffect, useState} from "react";
 import Product from "@interface/Product";
 import {Link} from "react-router-dom";
 import {faker} from '@faker-js/faker';
+import {theme} from "@assets/GlobalStyle";
+import {ThemeProvider} from "@mui/material";
 
 export default function Item(props: Product) {
     const [item, setItem] = useState<Product>();
@@ -58,7 +60,15 @@ export default function Item(props: Product) {
                     </div>
                     <div style={{marginTop: '8px'}}>
                         <FavoriteButton onClick={like}>
-                            {favorite ? <FavoriteIcon {...FavButtonStyle} /> : <FavoriteBorderIcon  {...FavButtonStyle} />}
+                            {favorite ?
+                                <ThemeProvider theme={theme}>
+                                    <FavoriteIcon {...FavButtonStyle} />
+                                </ThemeProvider>
+                                :
+                                <ThemeProvider theme={theme}>
+                                   <FavoriteBorderIcon  {...FavButtonStyle} />
+                                </ThemeProvider>
+                            }
                         </FavoriteButton>
                     </div>
                 </ItemLayout>

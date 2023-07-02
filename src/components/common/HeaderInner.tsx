@@ -1,16 +1,11 @@
 import {Link} from 'react-router-dom';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import styled from 'styled-components';
-import {useMediaQuery} from 'react-responsive';
 import SearchPC from '@components/common/SearchPC';
 import {PC, M} from '@components/common/MediaQuery';
 import SearchMobile from '@components/common/SearchMobile';
+import ShoppingCart from "@components/common/ShoppingCart";
 
 export default function HeaderInner() {
-    const isMobile = useMediaQuery({
-        query: '(max-width: 768px)'
-    });
-
     return (
         <Top>
             <Link to="/" reloadDocument={true}>
@@ -20,7 +15,7 @@ export default function HeaderInner() {
                 <PC elem={<SearchPC />} />
                 <M elem={<SearchMobile />} />
                 <CartIconBlock>
-                    <Link to='/cart' aria-label={`장바구니 바로가기`}><ShoppingCartOutlinedIcon fontSize={isMobile ? `medium` : `large`}/></Link>
+                    <ShoppingCart />
                 </CartIconBlock>
             </InheritBlock>
         </Top>

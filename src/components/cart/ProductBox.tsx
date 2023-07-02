@@ -1,9 +1,26 @@
-import {Flex, Margin} from "@assets/GlobalStyle";
+import {Flex} from "@assets/GlobalStyle";
 import img from "@assets/img/img.png";
 import Calculator from "./Calculator";
 import styled from "styled-components";
+import Product from "@interface/Product";
+import {useEffect, useState} from "react";
+import {useAppDispatch} from "@modules/store";
+import {removeCart} from "@modules/cartSlice";
+import Button from "@components/common/Button";
+import DoDisturbOnIcon from '@mui/icons-material/DoDisturbOn';
 
-export default function ProductBox() {
+export default function ProductBox(props: Product) {
+    const [product, setProduct] = useState<Product>();
+    useEffect(() => {
+        setProduct({...props});
+    }, [props]);
+
+    const dispatch = useAppDispatch();
+    const onRemoveButtonHandler = (no: number) => {
+        dispatch(removeCart(no));
+    }
+
+
     return (
         <ProductBoxLayout>
             <Checkbox>
@@ -13,14 +30,21 @@ export default function ProductBox() {
             <InfoBox>
                 <Flex justifyContent={`flex-start`}>
                     <ProductImg src={img} alt="상품 이미지"/>
-                    <Margin ml={12}>
-                        <BrandName>brand name</BrandName>
-                        <Title>title title title</Title>
-                    </Margin>
+                    <InfoBlock>
+                        <InfoBlockTop>
+                            <BrandName>{product?.brandName}</BrandName>
+                        {/* TODO: 삭제 버튼 디자인 결정하기 */}
+                        </InfoBlockTop>
+                        <Title>{product?.title}</Title>
+                        <OptionBlock>
+                            <div>{`옵션: ${product?.option}`}</div>
+                            <div>{`수량: ${product?.count}`}</div>
+                        </OptionBlock>
+                    </InfoBlock>
                 </Flex>
                 <Flex mt={8}>
                     <Calculator />
-                    <Price>43,000원</Price>
+                    <Price>{product?.priceText}</Price>
                 </Flex>
             </InfoBox>
         </ProductBoxLayout>
@@ -29,8 +53,9 @@ export default function ProductBox() {
 
 
 const ProductBoxLayout = styled.div`
-  padding: 1rem;
+  padding: 0.75rem;
   border: 1px solid var(--border100);
+  border-radius: 5px;
   background: var(--ui-background);
   display: flex;
   
@@ -97,18 +122,38 @@ const InfoBox = styled.div`
   }
 `;
 
-const BrandName = styled.h3`
-  font-size: 13px;
-  font-weight: 500;
+const InfoBlock = styled.div`
+  overflow: hidden;
+  margin-left: 12px;
+`;
+
+const InfoBlockTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
   margin-bottom: 7px;
 `;
 
+const BrandName = styled.h3`
+  font-size: 0.8125rem;
+  font-weight: 500;
+`;
+
 const Title = styled.div`
-  font-size: 14px;
+  width: 100%;
+  font-size: 0.875rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 7px;
+  margin-bottom: 4px;
+`;
+
+const OptionBlock = styled.div`
+  font-size: 0.75rem;
+  
+  & div:first-child {
+    margin-bottom: 2px;
+  }
 `;
 
 const Price = styled.div`

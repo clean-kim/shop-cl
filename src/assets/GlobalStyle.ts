@@ -102,6 +102,9 @@ export const theme = createTheme({
   palette: {
     primary: {
       main: '#171718'
+    },
+    info: {
+      main: '#ff6700'
     }
   }
 });

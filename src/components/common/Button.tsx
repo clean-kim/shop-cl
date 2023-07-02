@@ -35,6 +35,7 @@ const ButtonLayout = styled.button<ButtonProps>`
   border: 1px solid var(--primary);
   color: var(--primary);
   background-color: var(--ui-background);
+  cursor: pointer;
   
   ${({disabled}) => disabled && css`
     background: var(--ui-10) !important;

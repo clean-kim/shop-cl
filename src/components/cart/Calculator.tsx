@@ -10,7 +10,7 @@ export default function Calculator() {
         else if(sign < 1 && calcNum > 1) setCalcNum(prevState => prevState--);
     }
 
-    useEffect(() => {}, [calcNum]);
+    useEffect(() => {console.log();}, [calcNum]);
 
     return (
         <CalculatorSpan>

@@ -21,7 +21,7 @@ const cartSlice = createSlice({
                 if (duplicateItem.length > 0) {
                     duplicateItem.forEach((item: Product) => {
                         if (item.count) {   // 중복일 때 카운트만 증가
-                            const count = item.count+1;
+                            const count = item.count + 1;
                             newArr.push({...item, count});
                         }
                     })
@@ -33,7 +33,7 @@ const cartSlice = createSlice({
             }
             return newArr;
         },
-        removeCart : (state, action: PayloadAction<number>) => {
+        removeCart: (state, action: PayloadAction<number>) => {
             return state.filter((item: Product) => item.no !== action.payload);
         }
     }
