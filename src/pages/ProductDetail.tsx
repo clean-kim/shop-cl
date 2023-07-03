@@ -15,6 +15,8 @@ import {FavoriteButton} from '@components/common/Item';
 import {faker} from '@faker-js/faker';
 import SearchIcon from "@mui/icons-material/Search";
 import {ThemeProvider} from "@mui/material";
+import {useAppDispatch} from '@modules/store';
+import {addCart} from '@modules/cartSlice';
 
 type MoreButtonProps = {open: boolean;}
 
@@ -46,7 +48,7 @@ export default function ProductDetail() {
     }
 
     const {no} = useParams();
-    const [item, setItem] = useState<Product>({
+    const [product, setProduct] = useState<Product>({
         no: 0,
         title: '',
         price: 0,
@@ -57,15 +59,17 @@ export default function ProductDetail() {
     });
     const getProductDetail = (no: string) => {
         instance.get(`/products?no=${no}`).then(res => {
-            setItem(GetProductInterface(res.data)[0]);
+            setProduct(GetProductInterface(res.data)[0]);
         });
+    }
+    const dispatch = useAppDispatch();
+    const addToCart = () => {
+        dispatch(addCart({...product, count: 1, option: ''}));
     }
     useEffect(() => {
         getProductDetail(no as string);
-        fakeImage(item.category);
-    }, [item.category]);
-
-
+        fakeImage(product.category);
+    }, [no, product.category]);
 
     return (
         <ListSection>
@@ -73,7 +77,7 @@ export default function ProductDetail() {
                 <MainImage src={fakeImg} alt="상품 상세이미지"/>
                 <InfoSection>
                     <TitleSection>
-                        <Title>{item.title}</Title>
+                        <Title>{product.title}</Title>
                         <FavoriteButton onClick={like}>
                             {favorite ?
                                 <ThemeProvider theme={theme}>
@@ -88,10 +92,10 @@ export default function ProductDetail() {
                     </TitleSection>
                     <PriceBox>
                         <PrimeCost>
-                            {`${item.priceText}원`}
+                            {`${product.priceText}원`}
                         </PrimeCost>
                         <SalePriceBox>
-                            <DiscountRateSpan>{`${item.discountRate}%`}</DiscountRateSpan><span>{`${item.discountPriceText}원`}</span>
+                            <DiscountRateSpan>{`${product.discountRate}%`}</DiscountRateSpan><span>{`${product.discountPriceText}원`}</span>
                         </SalePriceBox>
                     </PriceBox>
                     <Review>후기 5개</Review>
@@ -99,12 +103,12 @@ export default function ProductDetail() {
                         <BrandBox>
                             <img src={fakeImg} alt=""/>
                             <div>
-                                {item.brandName}
+                                {product.brandName}
                             </div>
                         </BrandBox>
                         {!isMobile &&
                             <BuyGroupBlock>
-                                <Button>장바구니</Button>
+                                <Button onClickHandler={addToCart}>장바구니</Button>
                                 <PurchasePCButton>구매하기</PurchasePCButton>
                             </BuyGroupBlock>
                         }
@@ -129,7 +133,7 @@ export default function ProductDetail() {
                     </Button>
                 </MoreBox>
             </ProductImageBox>
-            {isMobile && <BuyGroup {...item} />}
+            {isMobile && <BuyGroup {...product} />}
         </ListSection>
     );
 }

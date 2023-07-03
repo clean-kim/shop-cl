@@ -5,6 +5,8 @@ import Product from "@interface/Product";
 import {addCart} from "@modules/cartSlice";
 import styled from "styled-components";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import {theme} from '@assets/GlobalStyle';
+import {ThemeProvider} from '@mui/material';
 
 export default function BuyGroup(props: Product) {
     const [product, setProduct] = useState<Product>({...props});
@@ -13,7 +15,6 @@ export default function BuyGroup(props: Product) {
         dispatch(addCart({...product, count: 1, option: ''}));
     }
 
-
     useEffect(() => {
         setProduct({...props});
     }, [props]);
@@ -21,7 +22,9 @@ export default function BuyGroup(props: Product) {
     return (
       <BuyGroupLayout>
           <FavoriteButtonLayout>
-            <button><FavoriteBorderIcon /></button>
+              <ThemeProvider theme={theme}>
+                <button><FavoriteBorderIcon color={`primary`}/></button>
+              </ThemeProvider>
           </FavoriteButtonLayout>
           <ButtonLayout>
               <Button onClickHandler={addToCart} setStyle={{...SetStyle}}>장바구니</Button>
