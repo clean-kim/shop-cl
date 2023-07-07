@@ -1,6 +1,8 @@
 import CloseIcon from '@mui/icons-material/Close';
 import styled from 'styled-components';
 import {MouseEventHandler} from 'react';
+import {ThemeProvider} from '@mui/material';
+import {theme} from '@assets/GlobalStyle';
 
 interface RemoveButtonProps {
     onClickHandler: MouseEventHandler;
@@ -9,7 +11,9 @@ interface RemoveButtonProps {
 export default function RemoveButton(props: RemoveButtonProps) {
     return (
         <RemoveButtonLayout onClick={props.onClickHandler}>
-            <CloseIcon fontSize={'small'}/>
+            <ThemeProvider theme={theme}>
+                <CloseIcon fontSize={'small'} color={`primary`}/>
+            </ThemeProvider>
         </RemoveButtonLayout>
     )
 }

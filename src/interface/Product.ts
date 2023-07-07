@@ -13,6 +13,7 @@ export default interface Product {
     discountPriceText?: string;
     option?: string;
     count?: number;
+    img?: string;
 }
 
 export interface ProductList {

@@ -22,7 +22,7 @@ export const GetNavItemInterface: (props: any) => NavItem[] = (props) => {
     return props.map((item: any) => {
         return {
             value: item.value,
-            link: item.link
+            link: `category${item.link}`
         }
     });
 }

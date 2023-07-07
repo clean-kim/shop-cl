@@ -13,13 +13,14 @@ export default function CategoryList() {
     const [loading, setLoading] = useState(true);
     const [productListData, setProductListData] = useState<ProductList>({list: [], totalCount: 0});
     const getCategoryList = (category: string | undefined) => {
-        instance.get(`/products?category_like=${category}`).then(res => {
-            setProductListData({
-                list: GetProductInterface(res.data),
-                totalCount: res.data.length
+        instance.get(`/products?category_like=${category}`)
+            .then(res => {
+                setProductListData({
+                    list: GetProductInterface(res.data),
+                    totalCount: res.data.length
+                });
+                setLoading(false);
             });
-            setLoading(false);
-        });
     }
     useEffect(() => {
         getCategoryList(category);

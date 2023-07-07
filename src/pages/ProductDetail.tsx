@@ -36,17 +36,6 @@ export default function ProductDetail() {
         setFavorite(prevState => !prevState);
     }
 
-    const [fakeImg, setFakeImg] = useState('');
-    const fakeImage = async (category: string | undefined) => {
-        setFakeImg(faker.image.urlPlaceholder({
-            width: 500,
-            height: 500,
-            text: category,
-            textColor: 'ffffff',
-            backgroundColor: '171718'
-        }));
-    }
-
     const {no} = useParams();
     const [product, setProduct] = useState<Product>({
         no: 0,
@@ -55,11 +44,22 @@ export default function ProductDetail() {
         priceText: '',
         likeCnt: 0,
         brandName: '',
-        discountRate: 0
+        discountRate: 0,
+        img: ''
     });
     const getProductDetail = (no: string) => {
         instance.get(`/products?no=${no}`).then(res => {
-            setProduct(GetProductInterface(res.data)[0]);
+            console.log(res.data.category);
+            setProduct({
+                ...GetProductInterface(res.data)[0],
+                img: faker.image.urlPlaceholder({
+                    width: 500,
+                    height: 500,
+                    text: res.data[0].category,
+                    textColor: 'ffffff',
+                    backgroundColor: '171718'
+                })
+            });
         });
     }
     const dispatch = useAppDispatch();
@@ -68,13 +68,12 @@ export default function ProductDetail() {
     }
     useEffect(() => {
         getProductDetail(no as string);
-        fakeImage(product.category);
-    }, [no, product.category]);
+    }, [no]);
 
     return (
         <ListSection>
             <InfoBlock>
-                <MainImage src={fakeImg} alt="상품 상세이미지"/>
+                <MainImage src={product.img} alt="상품 상세이미지"/>
                 <InfoSection>
                     <TitleSection>
                         <Title>{product.title}</Title>
@@ -101,7 +100,7 @@ export default function ProductDetail() {
                     <Review>후기 5개</Review>
                     <BottomBlock>
                         <BrandBox>
-                            <img src={fakeImg} alt=""/>
+                            <img src={product.img} alt=""/>
                             <div>
                                 {product.brandName}
                             </div>

@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import {useEffect, useState} from "react";
+import {useEffect, useState, MouseEvent} from "react";
 
 export default function Calculator() {
     const [calcNum, setCalcNum] = useState(1);
-    const calculator = (sign: number) => {
+    const calculator = (e: MouseEvent<HTMLButtonElement>, sign: number) => {
         console.log(sign);
 
         if(sign > 0) setCalcNum(prevState => prevState++);
@@ -14,9 +14,9 @@ export default function Calculator() {
 
     return (
         <CalculatorSpan>
-            <CalculatorButton onClick={e => calculator(0)}>-</CalculatorButton>
-            <CountInput id="targetNumber" defaultValue={calcNum} value={calcNum} />
-            <CalculatorButton onClick={e => calculator(1)}>+</CalculatorButton>
+            <CalculatorButton onClick={e => calculator(e, 0)}>-</CalculatorButton>
+            <CountInput id="targetNumber" value={calcNum} />
+            <CalculatorButton onClick={e => calculator(e, 1)}>+</CalculatorButton>
         </CalculatorSpan>
     );
 }
