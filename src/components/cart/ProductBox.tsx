@@ -29,7 +29,6 @@ export default function ProductBox(props: Product) {
                 <InfoBlock>
                     <InfoBlockTop>
                         <BrandName>{product?.brandName}</BrandName>
-                    {/* TODO: 삭제 버튼 디자인 결정하기 */}
                     </InfoBlockTop>
                     <Title>{product?.title}</Title>
                     <OptionBlock>
