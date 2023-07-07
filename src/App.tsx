@@ -30,16 +30,16 @@ function App() {
 
         setTimeout(() => {
             if(warnNotiRef.current) {
-                warnNotiRef.current.style.visibility = 'hidden';
                 warnNotiRef.current.style.transform = 'translateY(0)';
                 warnNotiRef.current.style.transition = 'all 0.6s ease-in-out';
             }
         }, 2500);
 
         setTimeout(() => {
-            if(notiRef.current) {
+            if(notiRef.current && warnNotiRef.current) {
                 notiRef.current.style.transform = 'translateY(-68px)';
                 notiRef.current.style.transition = 'all 0.6s ease-in-out';
+                warnNotiRef.current.style.display = 'none';
             }
         }, 3100);
     }
@@ -87,7 +87,6 @@ const AlertBlock = styled.div`
   height: 48px;
   top: -48px;
   text-align: center;
-  background: red;
 `;
 
 const InfoAlert = styled(Alert)`
@@ -102,8 +101,6 @@ const InfoAlert = styled(Alert)`
 
 const WarnAlertBlock = styled.div`
   position: relative;
-  width: 100%; 
-  height: 68px;
   z-index: -1;
 `;
 
