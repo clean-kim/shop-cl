@@ -1,16 +1,21 @@
 import styled from "styled-components";
 import {useEffect, useState, MouseEvent} from "react";
 
-export default function Calculator() {
+interface CalculatorProps {
+    initialCount: number;
+}
+
+export default function Calculator({initialCount}: CalculatorProps) {
     const [calcNum, setCalcNum] = useState(1);
     const calculator = (e: MouseEvent<HTMLButtonElement>, sign: number) => {
         console.log(sign);
-
         if(sign > 0) setCalcNum(prevState => prevState++);
         else if(sign < 1 && calcNum > 1) setCalcNum(prevState => prevState--);
     }
 
-    useEffect(() => {console.log();}, [calcNum]);
+    useEffect(() => {
+        setCalcNum(initialCount);
+    }, [initialCount]);
 
     return (
         <CalculatorSpan>
@@ -21,20 +26,21 @@ export default function Calculator() {
     );
 }
 
-const CalculatorSpan = styled.span`
+const CalculatorSpan = styled.div`
   width: 70px;
   position: relative;
   font-size: 12px;
   border: none;
   box-sizing: border-box;
   background: var(--ui-background);
+  display: flex;
 `;
 
 const CountInput = styled.input.attrs({
     type: "number",
     readOnly: true,
 })`
-  width: 40%;
+  width: 40px;
   height: 22px;
   text-align: center;
   border: 1px solid var(--border100);

@@ -19,7 +19,7 @@ export default function ProductBox(props: Product) {
     }
 
     return (
-        <ProductBoxLayout>
+        <ProductItem>
             <CheckboxBlock>
                 <CheckboxRound />
             </CheckboxBlock>
@@ -38,15 +38,15 @@ export default function ProductBox(props: Product) {
                 </InfoBlock>
             </Figure>
             <Flex mt={14} justifyContent={`space-between`}>
-                <Calculator />
+                <Calculator initialCount={product?.count ?? 1} />
                 <Price>{`${product?.priceText}원`}</Price>
             </Flex>
-        </ProductBoxLayout>
+        </ProductItem>
     );
 }
 
 
-const ProductBoxLayout = styled.li`
+const ProductItem = styled.li`
   position: relative;
   padding: 0.75rem 0.75rem 0.75rem 2.5rem;
   border: 1px solid var(--border100);
@@ -54,13 +54,10 @@ const ProductBoxLayout = styled.li`
   background: var(--ui-background);
   box-sizing: content-box;
   margin-bottom: 10px;
-  
-  img {
-    width: 25%;
-  }
 `;
 
 const ProductImg = styled.img`
+  width: 25%;
   border-radius: 7px;
 `;
 

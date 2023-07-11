@@ -12,11 +12,11 @@ export default function CartMobile() {
             <div>
                 전체선택
             </div>
-            <ProductBlock>
+            <ProductList>
                 {cartSelector.map((item: Product, i) => {
                     return <ProductBox {...item} key={i}/>;
                 })}
-            </ProductBlock>
+            </ProductList>
             <CartMobileFooter>
                 <Button setStyle={{...ButtonStyleGuide.basic01}}>주문하기</Button>
             </CartMobileFooter>
@@ -31,7 +31,7 @@ const CartMobileBox = styled.div`
   position: relative;
 `;
 
-const ProductBlock = styled.ul`
+const ProductList = styled.ul`
   padding: 16px;
   width: 100%;
   height: 100%;
