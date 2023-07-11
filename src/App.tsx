@@ -26,7 +26,7 @@ function App() {
                 warnNotiRef.current.style.transform = 'translateY(68px)';
                 warnNotiRef.current.style.transition = 'all 0.6s ease-in-out';
             }
-        }, 1100);
+        }, 1500);
 
         setTimeout(() => {
             if(warnNotiRef.current) {
@@ -83,10 +83,17 @@ const AlertBlock = styled.div`
   position: absolute;
   opacity: 1;
   z-index: 99;
-  width: 100%;
+  width: fit-content;
   height: 48px;
   top: -48px;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
+  
+  @media only screen and (max-width: 768px) {
+    width: 350px;
+    max-width: 350px;
+  }
 `;
 
 const InfoAlert = styled(Alert)`
@@ -101,17 +108,14 @@ const InfoAlert = styled(Alert)`
 
 const WarnAlertBlock = styled.div`
   position: relative;
+  width: fit-content;
+  transform: translate(50%, 0);
   z-index: -1;
 `;
 
 const WarningAlert = styled(Alert)`
-  width: 21.875rem; 
-  margin: 0 auto;
+  width: fit-content;
+  margin: 20px auto 0;
   text-align: center;
-  margin-top: 20px;
   visibility: hidden;
-  
-  @media only screen and (max-width: 768px) {
-    width: fit-content; 
-  }
 `;

@@ -4,14 +4,21 @@ import {useAppSelector} from '@modules/store';
 import Product from '@interface/Product';
 import ProductBox from "@components/cart/ProductBox";
 import Button, {ButtonStyleGuide} from "@components/common/Button";
+import CheckboxRound from "@components/common/CheckboxRound";
+import {Flex} from '@assets/GlobalStyle';
 
 export default function CartMobile() {
     const cartSelector = useAppSelector(state => state.cartSlice);
     return (
         <CartMobileBox>
-            <div>
-                전체선택
-            </div>
+            <Flex>
+                <div>
+                    <CheckboxRound /> 전체선택
+                </div>
+                <div>
+                    삭제
+                </div>
+            </Flex>
             <ProductList>
                 {cartSelector.map((item: Product, i) => {
                     return <ProductBox {...item} key={i}/>;
